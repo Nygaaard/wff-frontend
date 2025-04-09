@@ -31,7 +31,7 @@ const router = createBrowserRouter([
         element: <ProducersPage />,
       },
       {
-        path: "/producer",
+        path: "/producer/:slug",
         element: <ProducerPage />,
       },
       {
