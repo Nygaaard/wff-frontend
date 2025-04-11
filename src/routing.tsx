@@ -23,7 +23,7 @@ const router = createBrowserRouter([
         element: <WinesPage />,
       },
       {
-        path: "/wine",
+        path: "/wine/:id",
         element: <WinePage />,
       },
       {

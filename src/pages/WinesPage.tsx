@@ -1,11 +1,13 @@
 import WineCard from "../components/WineCard";
 import { useState, useEffect } from "react";
 import { WineProps } from "../types/Wines/WineProps";
+import { useNavigate } from "react-router-dom"; // ändrat här
 
 const WinesPage = () => {
   const [wines, setWines] = useState<WineProps[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
+  const navigate = useNavigate(); // ny hook
 
   useEffect(() => {
     const fetchWines = async () => {
@@ -30,6 +32,10 @@ const WinesPage = () => {
     fetchWines();
   }, []);
 
+  const handleCardClick = (id: number) => {
+    navigate(`/wine/${id}`);
+  };
+
   return (
     <div>
       {loading && <p>Laddar...</p>}
@@ -41,15 +47,20 @@ const WinesPage = () => {
 
       <section className="winesList">
         {wines.map((wine) => (
-          <WineCard
-            id={wine.id}
+          <div
             key={wine.id}
-            featured_image_url={wine.featured_image_url}
-            title={wine.title}
-            wff_producent={wine.wff_producent}
-            wff_pris={wine.wff_pris}
-            wff_kategori={wine.wff_kategori}
-          />
+            onClick={() => handleCardClick(wine.id)}
+            style={{ cursor: "pointer" }}
+          >
+            <WineCard
+              id={wine.id}
+              featured_image_url={wine.featured_image_url}
+              title={wine.title}
+              wff_producent={wine.wff_producent}
+              wff_pris={wine.wff_pris}
+              wff_kategori={wine.wff_kategori}
+            />
+          </div>
         ))}
       </section>
     </div>
