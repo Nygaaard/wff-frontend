@@ -1,13 +1,13 @@
 import WineCard from "../components/WineCard";
 import { useState, useEffect } from "react";
 import { WineProps } from "../types/Wines/WineProps";
-import { useNavigate } from "react-router-dom"; // ändrat här
+import { useNavigate } from "react-router-dom";
 
 const WinesPage = () => {
   const [wines, setWines] = useState<WineProps[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
-  const navigate = useNavigate(); // ny hook
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchWines = async () => {
@@ -32,8 +32,8 @@ const WinesPage = () => {
     fetchWines();
   }, []);
 
-  const handleCardClick = (id: number) => {
-    navigate(`/wine/${id}`);
+  const handleCardClick = (slug: string) => {
+    navigate(`/wine/${slug}`);
   };
 
   return (
@@ -49,11 +49,12 @@ const WinesPage = () => {
         {wines.map((wine) => (
           <div
             key={wine.id}
-            onClick={() => handleCardClick(wine.id)}
+            onClick={() => handleCardClick(wine.slug)}
             style={{ cursor: "pointer" }}
           >
             <WineCard
               id={wine.id}
+              slug={wine.slug}
               featured_image_url={wine.featured_image_url}
               title={wine.title}
               wff_producent={wine.wff_producent}

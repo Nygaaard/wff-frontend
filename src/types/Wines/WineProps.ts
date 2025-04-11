@@ -1,5 +1,6 @@
 export interface WineProps {
   id: number;
+  slug: string;
   featured_image_url: string;
   title: {
     rendered: string;
