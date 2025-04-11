@@ -35,25 +35,31 @@ const ProducersPage: React.FC = () => {
       {loading && <p>Laddar...</p>}
       {error && <p>{error}</p>}
 
-      <h2>Producenter</h2>
-      <section className="producers-intro">
-        <p>
-          Wine for friends är idag stolta över att få samarbeta med lite fler än
-          en handful fantastiska vinproducenter. Samtliga producenter
-          värdesätter kvalitet framför kvantitet och vi kan gladeligen och med
-          stolthet säga att vi njuter av samtliga viner själva. Vi arbetar
-          aktivt med att hitta nya partners så håll utkik efter nya roliga
-          producenter och tillhörande viner.
-        </p>
+      <section className="producersIntro">
+        <h2>Producenter</h2>
+        <div>
+          <p>
+            Wine for friends är idag stolta över att få samarbeta med lite fler
+            än en handful fantastiska vinproducenter. Samtliga producenter
+            värdesätter kvalitet framför kvantitet och vi kan gladeligen och med
+            stolthet säga att vi njuter av samtliga viner själva.
+            <br />
+            <br />
+            Vi arbetar aktivt med att hitta nya partners så håll utkik efter nya
+            roliga producenter och tillhörande viner.
+          </p>
+        </div>
       </section>
-      <h3>Våra producenter</h3>
-      <section className="producers">
+      <h3 className="ourProducers">Våra producenter</h3>
+      <hr className="line" />
+      <section className="producersList">
         {producers.map((producer) => (
           <ProducerCard
             id={producer.id}
             key={producer.id}
             featured_image_url={producer.featured_image_url}
             title={producer.title}
+            producer_country={producer.producer_country}
             producer_description={producer.producer_description}
             slug={producer.slug}
           />

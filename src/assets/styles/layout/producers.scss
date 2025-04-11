@@ -1,0 +1,23 @@
+@import "../variables/fonts.scss";
+
+.producersIntro {
+    display: flex;
+    justify-content: space-between;
+    width: 90%;
+    h2 {
+        
+    }
+    div {
+        width: 50%;
+        p {
+            font-family: 'Space Grotesk', sans-serif;
+        }
+    }
+}
+.ourProducers {
+    
+}
+.producersList {
+    display: flex;
+    gap: 1rem;
+}

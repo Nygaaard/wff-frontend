@@ -1,0 +1,25 @@
+.producerCard {
+    .producerImage {
+        width: 600px;
+        height: 460px;
+        border-radius: 4px;
+    }
+    .producerTitle {
+        font-size: 2em;
+        margin-top: 0.8rem;
+    }
+    .producerCountry {
+        opacity: 50%;
+    }
+    .producerDescription {
+        margin-top: 2rem;
+        margin-bottom: 2rem;
+    }
+    .producerLink {
+        text-decoration: none;
+        color: #000;
+    }
+    .producerLink:hover {
+        color: #3a3737;
+    }
+}

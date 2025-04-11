@@ -5,6 +5,7 @@ export interface ProducerI {
   title: {
     rendered: string;
   };
-    producer_description: string;
-    slug: string;
+  producer_country: string;
+  producer_description: string;
+  slug: string;
 }

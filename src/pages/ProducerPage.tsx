@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { ProducerI } from "../types/Producers/ProducerInterface";
+import SpecificProducerCard from "../components/specificProducerCard"; // Uppdaterad till versal
 
 const ProducerPage: React.FC = () => {
   const { slug } = useParams();
@@ -35,14 +36,19 @@ const ProducerPage: React.FC = () => {
 
   if (loading) return <p>Laddar...</p>;
   if (error) return <p>{error}</p>;
-
   if (!producer) return <p>Producenten hittades inte.</p>;
 
   return (
     <div>
-      <h2>{producer.title.rendered}</h2>
-      <img src={producer.featured_image_url} alt={producer.title.rendered} />
-      <p>{producer.producer_description}</p>
+      <SpecificProducerCard
+        id={producer.id}
+        key={producer.id}
+        title={producer.title}
+        producer_country={producer.producer_country}
+        producer_description={producer.producer_description}
+        featured_image_url={producer.featured_image_url}
+        slug={producer.slug}
+      />
     </div>
   );
 };

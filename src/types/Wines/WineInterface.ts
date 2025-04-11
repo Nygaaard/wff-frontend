@@ -19,11 +19,5 @@ export interface WineI {
     wff_servering: string;
     wff_storlek: string;
     wff_artnr_systembolaget: string;
-    _embedded?: {
-        "wp-feauteredmedia"?: [
-            {
-                source_url: string; //URL till bilden
-            }
-        ]
-    }
+    featured_image_url?: string;
 }

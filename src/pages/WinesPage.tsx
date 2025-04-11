@@ -1,7 +1,9 @@
 const WinesPage = () => {
   return (
     <div>
-      <h2>Våra viner</h2>
+      <section className="upper">
+        <h2>Våra viner</h2>
+      </section>
     </div>
   );
 };
