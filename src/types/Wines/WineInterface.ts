@@ -4,7 +4,6 @@ export interface WineI {
     title: {
         rendered: string;
     }
-    wff_pris: string;
     wff_producent: string;
     wff_argang: number;
     wff_alkohol: string;

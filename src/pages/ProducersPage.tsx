@@ -28,7 +28,7 @@ const ProducersPage: React.FC = () => {
     };
 
     fetchProducers();
-  }, []); // Beroende array gör att fetch körs endast när komponenten mountas
+  }, []);
 
   return (
     <div>

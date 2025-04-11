@@ -1,4 +1,4 @@
-@import "../variables/fonts.scss";
+@use "../variables/fonts.scss" as *;
 
 h2 {
     font-family: $font-grotesk;
