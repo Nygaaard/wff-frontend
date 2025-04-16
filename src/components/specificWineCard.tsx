@@ -14,6 +14,7 @@ const SpecificWineCard: React.FC<WineI> = ({
   wff_kategori,
   wff_land,
   wff_region,
+  wff_dosage,
   wff_servera_till,
   wff_servering,
   wff_storlek,
@@ -109,6 +110,12 @@ const SpecificWineCard: React.FC<WineI> = ({
             <div className="lowerObj">
               <p>Vinifikation</p>
               <p>{wff_vinifikation}</p>
+            </div>
+          )}
+          {wff_dosage && (
+            <div className="lowerObj">
+              <p>Dosage</p>
+              <p>{wff_dosage}</p>
             </div>
           )}
           {wff_servering && (
