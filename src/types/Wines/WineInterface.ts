@@ -20,6 +20,8 @@ export interface WineI {
   wff_kategori?: string;
   wff_artnr_systembolaget?: string;
   wff_bestallning?: string;
+  wff_dosage?: string;
+  wff_varugrupp?: string;
   wff_systembolaget_url?: string;
   featured_image_url?: string;
 }

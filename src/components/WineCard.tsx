@@ -8,16 +8,16 @@ const WineCard: React.FC<WineProps> = ({
   wff_kategori,
 }) => {
   return (
-    <article>
-      <img src={featured_image_url} alt={title.rendered} />
-      <h3>{title.rendered}</h3>
-      <p>{wff_producent}</p>
-      <p>{wff_pris} kr</p>
-      {wff_kategori == "Beställningssortiment" ? (
-        <p>BS</p>
-      ) : (
-        <p>Privatimport</p>
-      )}
+    <article className="card">
+      <img className="image" src={featured_image_url} alt={title.rendered} />
+      <h3 className="title">{title.rendered}</h3>
+      <p className="text">{wff_producent}</p>
+      <div className="priceCategory">
+        <span>{wff_pris} kr</span>
+        <span>
+          {wff_kategori === "Beställningssortiment" ? "BS" : "Privatimport"}
+        </span>
+      </div>
     </article>
   );
 };

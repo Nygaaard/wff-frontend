@@ -36,31 +36,47 @@ const WinesPage = () => {
     navigate(`/wine/${slug}`);
   };
 
+  const chunkWines = (arr: WineProps[], size: number): WineProps[][] => {
+    const result = [];
+    for (let i = 0; i < arr.length; i += size) {
+      result.push(arr.slice(i, i + size));
+    }
+    return result;
+  };
+
+  const wineRows = chunkWines(wines, 4); // 4 per rad
+
   return (
     <div>
-      {loading && <p>Laddar...</p>}
-      {error && <p>{error}</p>}
+      {loading && <p className="loading">Laddar...</p>}
+      {error && <p className="error">{error}</p>}
 
       <section className="upper">
         <h2>Våra viner</h2>
       </section>
 
       <section className="winesList">
-        {wines.map((wine) => (
-          <div
-            key={wine.id}
-            onClick={() => handleCardClick(wine.slug)}
-            style={{ cursor: "pointer" }}
-          >
-            <WineCard
-              id={wine.id}
-              slug={wine.slug}
-              featured_image_url={wine.featured_image_url}
-              title={wine.title}
-              wff_producent={wine.wff_producent}
-              wff_pris={wine.wff_pris}
-              wff_kategori={wine.wff_kategori}
-            />
+        {wineRows.map((row, rowIndex) => (
+          <div className="wineRow" key={rowIndex}>
+            {row.map((wine, i) => (
+              <div
+                key={wine.id}
+                className={`wineCardWrapper ${
+                  i !== row.length - 1 ? "withBorderRight" : ""
+                }`}
+                onClick={() => handleCardClick(wine.slug)}
+              >
+                <WineCard
+                  id={wine.id}
+                  slug={wine.slug}
+                  featured_image_url={wine.featured_image_url}
+                  title={wine.title}
+                  wff_producent={wine.wff_producent}
+                  wff_pris={wine.wff_pris}
+                  wff_kategori={wine.wff_kategori}
+                />
+              </div>
+            ))}
           </div>
         ))}
       </section>
