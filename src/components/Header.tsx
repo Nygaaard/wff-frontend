@@ -1,4 +1,5 @@
 import { NavLink } from "react-router-dom";
+import logo from "../assets/images/logo.png";
 
 const Header = () => {
   return (
@@ -31,8 +32,14 @@ const Header = () => {
               Kontakt
             </NavLink>
           </li>
+          <li>
+            <NavLink to="/blog" className="menu-link">
+              Blogg
+            </NavLink>
+          </li>
         </ul>
       </nav>
+      <img src={logo} alt="logo" className="logo" />
     </header>
   );
 };

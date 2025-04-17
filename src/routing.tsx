@@ -7,6 +7,7 @@ import ProducerPage from "./pages/ProducerPage";
 import ImportPage from "./pages/ImportPage";
 import AboutPage from "./pages/AboutPage";
 import ContactPage from "./pages/ContactPage";
+import BlogPage from "./pages/BlogPage";
 import Layout from "./components/Layout";
 
 const router = createBrowserRouter([
@@ -45,6 +46,10 @@ const router = createBrowserRouter([
       {
         path: "/contact",
         element: <ContactPage />,
+      },
+      {
+        path: "/blog",
+        element: <BlogPage />,
       },
     ],
   },
