@@ -1,23 +1,55 @@
 @import "../variables/fonts.scss";
 
-.producersIntro {
-    display: flex;
-    justify-content: space-between;
+.producers-page {
     width: 90%;
-    h2 {
-        
-    }
-    div {
-        width: 50%;
-        p {
-            font-family: 'Space Grotesk', sans-serif;
+    margin: 0 auto;
+    margin-top: 5rem;
+    padding: 2rem 0;
+
+    .producers-intro {
+        display: grid;
+        grid-template-columns: 1fr 1fr; // Delar in i två kolumner
+        gap: 2rem;
+        align-items: flex-start;
+
+        h2 {
+            font-size: 2.5rem;
+            font-weight: 600;
+            margin: 0; // Ta bort ev. onödig margin
+            justify-self: start; // Säkerställ att den ligger längst till vänster
+        }
+
+        div {
+            justify-self: start;
+
+            p {
+                font-family: 'Space Grotesk', sans-serif;
+                line-height: 1.6;
+                font-size: 1.1rem;
+            }
         }
     }
-}
-.ourProducers {
-    
-}
-.producersList {
-    display: flex;
-    gap: 1rem;
+
+    .our-producers {
+        margin-top: 4rem;
+        font-size: 2rem;
+        font-weight: 500;
+    }
+
+    .section-divider {
+        margin: 1rem 0 2rem 0;
+        border: none;
+        border-top: 1px solid #000;
+        width: 100%;
+    }
+
+    .producers-list {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+        gap: 2rem;
+        
+        &>* {
+            height: 100%;
+        }
+    }
 }

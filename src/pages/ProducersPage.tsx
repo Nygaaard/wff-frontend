@@ -31,11 +31,11 @@ const ProducersPage: React.FC = () => {
   }, []);
 
   return (
-    <div>
+    <div className="producers-page">
       {loading && <p>Laddar...</p>}
       {error && <p>{error}</p>}
 
-      <section className="producersIntro">
+      <section className="producers-intro">
         <h2>Producenter</h2>
         <div>
           <p>
@@ -50,9 +50,11 @@ const ProducersPage: React.FC = () => {
           </p>
         </div>
       </section>
-      <h3 className="ourProducers">Våra producenter</h3>
-      <hr className="line" />
-      <section className="producersList">
+
+      <h3 className="our-producers">Våra producenter</h3>
+      <hr className="section-divider" />
+
+      <section className="producers-list">
         {producers.map((producer) => (
           <ProducerCard
             id={producer.id}

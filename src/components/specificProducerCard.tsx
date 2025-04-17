@@ -8,21 +8,21 @@ const SpecificProducerCard: React.FC<ProducerI> = ({
 }) => {
   return (
     <article className="specificProducerCard">
-      <div className="specificProducerContainer">
-        <div className="specificProducerWrapper">
-          <h3 className="specificProducerTitle">{title.rendered}</h3>
-          <div className="diver">
-            <p className="specificProducerCountry">{producer_country}</p>
-          </div>
+      <section className="producerHeader">
+        <div className="producerText">
+          <h2 className="title">{title.rendered}</h2>
+          <p className="country">{producer_country}</p>
         </div>
-        <p className="specificProducerDescription">{producer_description}</p>
-      </div>
+        <div className="descriptionWrapper">
+          <p className="description">{producer_description}</p>
+        </div>
+      </section>
 
       {featured_image_url && (
         <img
           src={featured_image_url}
           alt={title.rendered}
-          className="specificProducerImage"
+          className="fullWidthImage"
         />
       )}
     </article>

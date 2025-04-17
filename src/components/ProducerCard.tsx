@@ -9,18 +9,19 @@ const ProducerCard: React.FC<ProducerI> = ({
   slug,
 }) => {
   return (
-    <article className="producerCard">
+    <article className="producer-card">
       <img
         src={featured_image_url}
         alt={title.rendered}
-        className="producerImage"
+        className="producer-image"
       />
-      <h3 className="producerTitle">{title.rendered}</h3>
-      <p className="producerCountry">{producer_country}</p>
-      <p className="producerDescription">{producer_description}</p>
-      <Link to={`/producer/${slug}`} className="producerLink">
+      <h3 className="producer-title">{title.rendered}</h3>
+      <p className="producer-country">{producer_country}</p>
+      <p className="producer-description">{producer_description}</p>
+      <Link to={`/producer/${slug}`} className="producer-link">
         Läs mer
       </Link>
+      <div className="card-divider" />
     </article>
   );
 };
