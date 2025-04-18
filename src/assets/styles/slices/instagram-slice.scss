@@ -11,7 +11,7 @@
 
     .instagram-text-container {
         display: flex;
-        justify-content: space-between; // För att placera titeln till vänster och handle till höger
+        justify-content: space-between; 
         align-items: center;
         margin-bottom: 20px;
 
@@ -28,18 +28,18 @@
 
     .instagram-carousel {
         display: flex;
-        justify-content: space-between; // För att placera bilderna jämnt
+        justify-content: space-between; 
         overflow-x: auto;
         gap: 15px;
-        overflow-y: hidden; // Förhindrar vertikal scroll
-        max-width: 100%; // Se till att karusellen inte överskrider sin förälder
-        height: 300px; // Fixera höjden om det behövs för att undvika vertikal scroll
+        overflow-y: hidden; 
+        max-width: 100%; 
+        height: 300px; 
 
         .carousel-image {
-            width: 300px; // Justera storlek på bilderna
+            width: 300px; 
             height: 100%;
             object-fit: cover;
-            border-radius: 8px; // Valfritt: kan ge bilderna rundade hörn
+            border-radius: 8px; 
 
             img {
                 width: 100%;
@@ -51,17 +51,16 @@
     }
 }
 
-// Responsivitet för små skärmar
 @media (max-width: 768px) {
     .instagram-section {
         .instagram-carousel {
-            flex-direction: column; // Gör att bilderna staplas vertikalt på små skärmar
-            height: auto; // Tillåter en flexibel höjd när bilderna staplas
+            flex-direction: column; 
+            height: auto;
         }
 
         .carousel-image {
-            width: 100%; // Gör bilderna fullbredd
-            height: auto; // Gör att bilderna skalar korrekt
+            width: 100%; 
+            height: auto; 
         }
     }
 }

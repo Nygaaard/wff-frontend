@@ -1,0 +1,115 @@
+.wineclub-section {
+    background-color: #f9f9f9;
+    display: flex;
+    justify-content: space-between;
+    align-items: stretch;
+    margin-top: 250px;
+    padding: 50px;
+    border-radius: 10px;
+    min-height: 400px;
+    overflow: visible;
+
+    .left {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        padding-right: 30px;
+
+        h4 {
+            font-size: 2rem;
+            font-weight: bold;
+            margin-bottom: 30px;
+        }
+
+        p {
+            font-size: 1.2rem;
+            line-height: 1.6;
+            margin-bottom: 30px;
+        }
+
+        .email-input-wrapper {
+            display: flex;
+            width: 100%;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            overflow: hidden;
+
+            input[type="email"] {
+                flex: 1;
+                padding: 15px;
+                font-size: 1rem;
+                border: none;
+                background-color: #f9f9f9;
+            }
+
+            button {
+                padding: 15px 20px;
+                background-color: #f9f9f9;
+                color: #000;
+                font-size: 1rem;
+                border: none;
+                cursor: pointer;
+                transition: background-color 0.3s;
+
+                &:hover {
+                    background-color: #494747;
+                    color: #fff;
+                }
+            }
+        }
+    }
+
+    .right {
+        flex: 1;
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-end; 
+        padding-top: 100px; 
+
+        .bottle {
+            width: 162px;
+            height: 575px;
+            object-fit: contain;
+        }
+
+        .top {
+            align-self: flex-start; 
+            margin-bottom: -100px; 
+        }
+
+        .bottom {
+            margin-top: -100px; 
+        }
+    }
+}
+
+// Responsivitet
+@media (max-width: 768px) {
+    .wineclub-section {
+        flex-direction: column;
+
+        .left {
+            margin-bottom: 30px;
+            padding-right: 0;
+        }
+
+        .right {
+            flex-direction: column;
+            align-items: center;
+            padding-top: 0;
+
+            .bottle {
+                width: 120px;
+                height: auto;
+                margin: 0 0 10px 0;
+            }
+
+            .top,
+            .bottom {
+                margin: 0;
+                align-self: center;
+            }
+        }
+    }
+}
