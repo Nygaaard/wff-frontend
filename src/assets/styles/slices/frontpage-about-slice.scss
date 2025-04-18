@@ -1,0 +1,48 @@
+.frontpage-about-slice {
+    margin-top: 150px;
+    position: relative;
+}
+
+.frontpage-about-slice h3 {
+    font-weight: 500;
+    font-size: 6rem;
+    text-align: center;
+    position: relative;
+}
+
+.h3-under {
+    position: absolute;
+    left: 350px;
+    /* Justerar den undre raden så att 'CAN' hamnar mellan Y och L */
+}
+
+.frontpage-about {
+    display: flex;
+    align-items: center;
+    /* Centrerar innehållet vertikalt */
+    position: relative;
+    margin-top: 75px;
+    /* Justerar avståndet mellan text och bild */
+}
+
+.frontpage-about-image {
+    width: 478px;
+    height: 584px;
+    object-fit: cover;
+    position: relative;
+    margin-left: 230px;
+    /* Ökar avståndet till höger */
+}
+
+.frontpage-about-div {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    max-width: 500px;
+    margin-left: 200px;
+}
+
+.frontpage-about-div p {
+    padding: 1rem 0;
+    margin-bottom: 1rem;
+}

@@ -5,6 +5,7 @@
 @import "./layout/producers.scss";
 @import "./layout/winesPage.scss";
 @import "./layout/producer.scss";
+@import "./layout/HomePage.scss";
 
 @import "./components/specificProducerCard.scss";
 @import "./components/producerCard.scss";
@@ -12,5 +13,7 @@
 @import "./components/wineCard.scss";
 @import "./components/specificWineCard.scss";
 @import "./components/logo.scss";
+
+@import "./slices/frontpage-about-slice.scss";
 
 @import "./variables/fonts.scss";
