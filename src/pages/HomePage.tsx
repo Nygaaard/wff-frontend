@@ -4,6 +4,12 @@ import WineCard from "../components/WineCard";
 import { WineProps } from "../types/Wines/WineProps";
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
+import insta1 from "../assets/images/insta1.png";
+import insta2 from "../assets/images/insta2.png";
+import insta3 from "../assets/images/insta3.png";
+import insta4 from "../assets/images/insta4.png";
+import insta5 from "../assets/images/insta5.png";
+import insta6 from "../assets/images/insta6.png";
 
 const HomePage = () => {
   const [wines, setWines] = useState<WineProps[]>([]);
@@ -95,7 +101,36 @@ const HomePage = () => {
               sällskap, med vänner och familj, och sättet det bidrar till att
               skapa och dela egna minnen och upplevelser.
             </p>
-            <Link to="/about">Läs mer om oss</Link>
+            <Link to="/about" className="link">
+              Läs mer om oss
+            </Link>
+          </div>
+        </div>
+      </section>
+      <section className="instagram-section">
+        <hr className="horizontal-line" />
+        <div className="instagram-text-container">
+          <h3 className="instagram-title">Följ oss på Instagram</h3>
+          <p className="instagram-handle">@wineforfriends.se</p>
+        </div>
+        <div className="instagram-carousel">
+          <div className="carousel-image">
+            <img src={insta1} alt="Instagram 1" />
+          </div>
+          <div className="carousel-image">
+            <img src={insta2} alt="Instagram 2" />
+          </div>
+          <div className="carousel-image">
+            <img src={insta3} alt="Instagram 3" />
+          </div>
+          <div className="carousel-image">
+            <img src={insta4} alt="Instagram 4" />
+          </div>
+          <div className="carousel-image">
+            <img src={insta5} alt="Instagram 5" />
+          </div>
+          <div className="carousel-image">
+            <img src={insta6} alt="Instagram 6" />
           </div>
         </div>
       </section>
