@@ -13,16 +13,13 @@
 .h3-under {
     position: absolute;
     left: 350px;
-    /* Justerar den undre raden så att 'CAN' hamnar mellan Y och L */
 }
 
 .frontpage-about {
     display: flex;
     align-items: center;
-    /* Centrerar innehållet vertikalt */
     position: relative;
     margin-top: 75px;
-    /* Justerar avståndet mellan text och bild */
 }
 
 .frontpage-about-image {
@@ -31,7 +28,6 @@
     object-fit: cover;
     position: relative;
     margin-left: 230px;
-    /* Ökar avståndet till höger */
 }
 
 .frontpage-about-div {
@@ -49,7 +45,6 @@
 
 .link {
     color: #000;
-    text-decoration: none;
 }
 .link:hover {
     color: #494747;

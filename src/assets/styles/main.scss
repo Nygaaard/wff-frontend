@@ -6,6 +6,7 @@
 @import "./layout/winesPage.scss";
 @import "./layout/producer.scss";
 @import "./layout/HomePage.scss";
+@import "./layout//about.scss";
 
 @import "./components/specificProducerCard.scss";
 @import "./components/producerCard.scss";
@@ -17,5 +18,6 @@
 @import "./slices/frontpage-about-slice.scss";
 @import "./slices/instagram-slice.scss";
 @import "./slices/wine-club-slice.scss";
+@import "./slices/footer-bottom.scss";
 
 @import "./variables/fonts.scss";

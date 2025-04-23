@@ -1,0 +1,64 @@
+.footer-bottom {
+    background-color: #000;
+    color: #fff;
+    padding: 40px 20px;
+    display: flex;
+    flex-direction: column;
+    min-height: 400px; // Ger höjd att jobba med
+    text-align: center;
+
+    .email-text {
+        align-self: flex-end;
+        width: 100%;
+        text-align: right;
+        font-size: 1rem;
+        padding-right: 20px;
+        margin-bottom: 2rem;
+    }
+
+    .vector-wrapper {
+        display: flex;
+        justify-content: center;
+        gap: 20px;
+        margin-bottom: auto; // Trycker ner nästa element
+
+        img {
+            width: 114px;
+            height: 209px;
+            object-fit: contain;
+        }
+    }
+
+    .logo-bottom {
+        margin-top: auto; // Pushar loggan längst ner
+        display: flex;
+        justify-content: center;
+
+        img {
+            width: 1502px;
+            height: 116px;
+            max-width: 100%;
+        }
+    }
+}
+
+
+// Responsivitet
+@media (max-width: 768px) {
+    .footer-bottom {
+        .email-text {
+            text-align: center;
+            padding-right: 0;
+        }
+
+        .vector-wrapper {
+            flex-direction: column;
+            align-items: center;
+
+            img {
+                width: 100px;
+                height: auto;
+            }
+        }
+    }
+}
