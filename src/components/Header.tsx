@@ -4,7 +4,10 @@ import logo from "../assets/images/logo.png";
 const Header = () => {
   return (
     <header>
-      <h1>WINE FOR FRIENDS</h1>
+      <NavLink to="/" className="brand">
+        <h1>WINE FOR FRIENDS</h1>
+      </NavLink>
+
       <nav>
         <ul>
           <li>
@@ -39,7 +42,10 @@ const Header = () => {
           </li>
         </ul>
       </nav>
-      <img src={logo} alt="logo" className="logo" />
+
+      <NavLink to="/" className="logo-link">
+        <img src={logo} alt="logo" className="logo" />
+      </NavLink>
     </header>
   );
 };

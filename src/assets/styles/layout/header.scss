@@ -7,15 +7,32 @@ header {
     min-height: 100px;
     margin: 0 auto;
     width: 100%;
-    h1 {
-        
+    padding: 0 2rem; 
+
+    .brand {
+        text-decoration: none;
+
+        h1 {
+            font-family: 'Space Grotesk', sans-serif;
+            color: #000;
+            font-size: 1.8rem;
+            font-weight: 600;
+            margin: 0;
+        }
     }
+
     nav {
+        margin-left: auto;
+
         ul {
             display: flex;
             list-style: none;
+            padding: 0;
+            margin: 0;
+
             li {
                 padding: 1rem;
+
                 a {
                     text-decoration: none;
                     color: #000;
@@ -23,6 +40,17 @@ header {
                     font-family: 'Space Grotesk', sans-serif;
                 }
             }
+        }
+    }
+
+    .logo-link {
+        margin-left: 2rem; 
+        display: flex;
+        align-items: center;
+
+        .logo {
+            height: 60px;
+            width: auto;
         }
     }
 }

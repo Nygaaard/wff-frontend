@@ -2,15 +2,19 @@
     width: 90%;
     margin: 0 auto;
     padding: 2rem 0;
+    margin-top: 4rem;
 
     .producerHeader {
         display: flex;
         flex-wrap: wrap;
-        gap: 2rem;
-        align-items: flex-start;
+        position: relative;
+        min-height: 200px; // se till att det finns plats
 
         .producerText {
-            flex: 1 1 300px;
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 50%;
 
             .title {
                 font-size: 2.5rem;
@@ -25,7 +29,8 @@
         }
 
         .descriptionWrapper {
-            flex: 2 1 500px;
+            margin-left: 50%; // börjar vid 50% av skärmen
+            width: 50%;
 
             .description {
                 font-family: 'Space Grotesk', sans-serif;
