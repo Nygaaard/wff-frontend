@@ -20,7 +20,7 @@ const AboutWFF = () => {
           om hjärtat varför det känns naturligt att vår resa startade i just
           Åre.
         </p>
-        <hr />
+        <hr className="section-divider" />
         <div className="image-row">
           <img src={img1} alt="Team at Granen" />
           <img src={img2} alt="Wine for Friends group" />
@@ -41,7 +41,7 @@ const AboutWFF = () => {
         </p>
       </section>
 
-      <hr />
+      <hr className="section-divider" />
 
       <section className="producers">
         <h2>Lite om våra nya vänner</h2>
@@ -76,7 +76,7 @@ const AboutWFF = () => {
         </ul>
       </section>
 
-      <hr />
+      <hr className="section-divider" />
 
       <footer className="team-signature">
         <p>

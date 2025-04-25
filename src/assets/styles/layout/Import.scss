@@ -1,0 +1,54 @@
+.private-import {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 2rem;
+    font-family: 'Helvetica Neue', sans-serif;
+    line-height: 1.6;
+    color: #111;
+
+    h1,
+    h2 {
+        text-align: center;
+        margin-bottom: 1rem;
+        font-weight: 600;
+    }
+
+    p,
+    li {
+        font-size: 1rem;
+        margin-bottom: 0.8rem;
+    }
+
+    a {
+        color: #7b1e1e;
+        text-decoration: underline;
+
+        &:hover {
+            text-decoration: none;
+        }
+    }
+
+    ol {
+        padding-left: 1.5rem;
+
+        li {
+            margin-bottom: 1rem;
+
+            ul {
+                margin-top: 0.5rem;
+                padding-left: 1.5rem;
+
+                li {
+                    list-style: disc;
+                }
+            }
+        }
+    }
+
+    .section-divider {
+        margin: 2rem 0;
+        border: none;
+        border-top: 1px solid #000;
+        width: 100%;
+    }
+}
