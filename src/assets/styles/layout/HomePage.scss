@@ -2,16 +2,22 @@
     display: flex;
     flex-direction: column;
 }
+
 .frontpage-image {
     width: 100%;
     height: auto;
     margin-top: 80px;
 }
+
 .frontpage-info {
     width: 50%;
     margin-left: auto;
     margin-top: 1rem;
     padding: 1rem;
+    @media (max-width: 800px) {
+        width: 80%;
+        margin: 0 auto;
+    }
 }
 
 .frontpage-winesList {

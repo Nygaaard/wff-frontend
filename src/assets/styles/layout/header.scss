@@ -1,18 +1,26 @@
 @import "../variables/fonts.scss";
 
 header {
+    width: 100%;
+    padding: 0 2rem;
+    min-height: 100px;
     display: flex;
     align-items: center;
-    justify-content: space-between;
-    min-height: 100px;
-    margin: 0 auto;
-    width: 100%;
-    padding: 0 2rem; 
+    justify-content: center;
+    position: relative;
+    z-index: 10;
+
+    .header-container {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        width: 100%;
+    }
 
     .brand {
         text-decoration: none;
 
-        h1 {
+        .site-title {
             font-family: 'Space Grotesk', sans-serif;
             color: #000;
             font-size: 1.8rem;
@@ -22,18 +30,16 @@ header {
     }
 
     nav {
-        margin-left: auto;
-
         ul {
             display: flex;
             list-style: none;
-            padding: 0;
             margin: 0;
+            padding: 0;
 
             li {
                 padding: 1rem;
 
-                a {
+                .menu-link {
                     text-decoration: none;
                     color: #000;
                     font-size: 1.1em;
@@ -44,13 +50,134 @@ header {
     }
 
     .logo-link {
-        margin-left: 2rem; 
         display: flex;
         align-items: center;
 
         .logo {
             height: 60px;
             width: auto;
+        }
+    }
+
+    .menu-icon {
+        display: none;
+        cursor: pointer;
+    }
+}
+
+// ===============================
+// 1000px och uppåt – desktop layout
+// ===============================
+@media screen and (min-width: 1000px) {
+    .header-container {
+        display: grid;
+        grid-template-columns: 1fr auto 1fr;
+        align-items: center;
+
+        .brand {
+            justify-self: start;
+        }
+
+        nav {
+            justify-self: center;
+        }
+
+        .logo-link {
+            justify-self: end;
+        }
+
+        .site-title {
+            display: block;
+        }
+    }
+
+    .menu-icon {
+        display: none;
+    }
+}
+
+// ===============================
+// Mellan 800px–999px – loggan ersätter h1
+// ===============================
+@media screen and (max-width: 999px) and (min-width: 801px) {
+    .header-container {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+
+        .brand {
+            display: none;
+        }
+
+        .logo-link {
+            order: -1;
+            margin-right: auto;
+        }
+
+        nav {
+            margin-left: auto;
+
+            ul {
+                display: flex;
+            }
+        }
+    }
+
+    .menu-icon {
+        display: none;
+    }
+}
+
+// ===============================
+// Mindre än 800px – mobil med hamburgarmeny
+// ===============================
+@media screen and (max-width: 800px) {
+    .header-container {
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+
+        .brand {
+            display: none;
+        }
+
+        .logo-link {
+            order: -1;
+        }
+
+        .menu-icon {
+            display: block;
+            cursor: pointer;
+        }
+
+        .menu {
+            display: none;
+            position: absolute;
+            top: 100px;
+            left: 0;
+            width: 100%;
+            background-color: white;
+            padding: 1rem 0;
+            text-align: center;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+
+            ul {
+                display: block;
+                padding: 0;
+                margin: 0;
+
+                li {
+                    padding: 0.75rem 0;
+
+                    .menu-link {
+                        font-size: 1.2rem;
+                    }
+                }
+            }
+
+            &.active {
+                display: block;
+            }
         }
     }
 }

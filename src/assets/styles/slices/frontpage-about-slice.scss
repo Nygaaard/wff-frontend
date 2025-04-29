@@ -1,51 +1,147 @@
 .frontpage-about-slice {
     margin-top: 150px;
     position: relative;
-}
 
-.frontpage-about-slice h3 {
-    font-weight: 500;
-    font-size: 6rem;
-    text-align: center;
-    position: relative;
-}
+    h3 {
+        font-weight: 500;
+        font-size: 6rem;
+        text-align: center;
+        position: relative;
+    }
 
-.h3-under {
-    position: absolute;
-    left: 350px;
-}
+    .h3-under {
+        position: absolute;
+        left: 350px;
+    }
 
-.frontpage-about {
-    display: flex;
-    align-items: center;
-    position: relative;
-    margin-top: 75px;
-}
+    .frontpage-about {
+        display: flex;
+        align-items: center;
+        position: relative;
+        margin-top: 75px;
 
-.frontpage-about-image {
-    width: 478px;
-    height: 584px;
-    object-fit: cover;
-    position: relative;
-    margin-left: 230px;
-}
+        .frontpage-about-image {
+            width: 478px;
+            height: 584px;
+            object-fit: cover;
+            position: relative;
+            margin-left: 230px;
+        }
 
-.frontpage-about-div {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    max-width: 500px;
-    margin-left: 200px;
-}
+        .frontpage-about-div {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            max-width: 500px;
+            margin-left: 200px;
 
-.frontpage-about-div p {
-    padding: 1rem 0;
-    margin-bottom: 1rem;
+            p {
+                padding: 1rem 0;
+                margin-bottom: 1rem;
+            }
+        }
+    }
 }
 
 .link {
     color: #000;
+
+    &:hover {
+        color: #494747;
+    }
 }
-.link:hover {
-    color: #494747;
+
+@media (max-width: 1500px) {
+    .frontpage-about-slice {
+        h3 {
+            font-size: 4rem;
+            word-wrap: break-word;
+        }
+
+        .h3-under {
+            left: 150px;
+            top: 0;
+            position: relative;
+        }
+
+        .frontpage-about {
+            justify-content: center;
+            margin-top: 50px;
+
+            .frontpage-about-image {
+                width: 400px;
+                height: auto;
+                margin: 0 auto;
+                position: relative;
+                top: -50px;
+            }
+
+            .frontpage-about-div {
+                margin: 0 auto;
+                max-width: 500px;
+                text-align: center;
+                position: relative;
+            }
+        }
+    }
+}
+
+@media (max-width: 1080px) {
+    .frontpage-about-slice {
+        h3 {
+            font-size: 3rem;
+            text-align: center;
+            margin: 0 auto;
+            word-wrap: break-word;
+        }
+
+        .h3-under {
+            position: relative;
+            left: 0;
+            top: 0;
+            margin-top: 10px;
+            text-align: center;
+        }
+
+        .frontpage-about {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            margin-top: 50px;
+            text-align: center;
+
+            .frontpage-about-image {
+                width: 90%;
+                height: auto;
+                margin: 0 auto;
+                position: relative;
+                top: -30px;
+            }
+
+            .frontpage-about-div {
+                margin: 20px 0;
+                max-width: 600px;
+                text-align: center;
+            }
+        }
+    }
+}
+
+@media (max-width: 800px) {
+    .frontpage-about-slice {
+        h3 {
+            font-size: 2.8rem;
+        }
+
+        .frontpage-about {
+            .frontpage-about-image {
+                width: 250px;
+            }
+
+            .frontpage-about-div {
+                margin-top: 1.5rem;
+            }
+        }
+    }
 }

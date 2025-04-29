@@ -1,9 +1,11 @@
 import { useEffect, useState } from "react";
 import ProducerCard from "../components/ProducerCard";
 import { ProducerI } from "../types/Producers/ProducerInterface";
+import { ProducersIntro } from "../types/Interfaces-wp/ProducersIntro";
 
 const ProducersPage: React.FC = () => {
   const [producers, setProducers] = useState<ProducerI[]>([]);
+  const [intro, setIntro] = useState<ProducersIntro | null>(null);
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
 
@@ -27,7 +29,23 @@ const ProducersPage: React.FC = () => {
       }
     };
 
+    const fetchIntro = async () => {
+      try {
+        const res = await fetch(
+          "http://localhost/wine_for_friends/wp-json/wp/v2/pages?slug=producenter-intro"
+        );
+        const data = await res.json();
+        setIntro(data[0]?.acf);
+      } catch (error) {
+        console.error(
+          "Kunde inte hämta introduktionstext för producenter:",
+          error
+        );
+      }
+    };
+
     fetchProducers();
+    fetchIntro();
   }, []);
 
   return (
@@ -35,21 +53,14 @@ const ProducersPage: React.FC = () => {
       {loading && <p>Laddar...</p>}
       {error && <p>{error}</p>}
 
-      <section className="producers-intro">
-        <h2>Producenter</h2>
-        <div>
-          <p>
-            Wine for friends är idag stolta över att få samarbeta med lite fler
-            än en handful fantastiska vinproducenter. Samtliga producenter
-            värdesätter kvalitet framför kvantitet och vi kan gladeligen och med
-            stolthet säga att vi njuter av samtliga viner själva.
-            <br />
-            <br />
-            Vi arbetar aktivt med att hitta nya partners så håll utkik efter nya
-            roliga producenter och tillhörande viner.
-          </p>
-        </div>
-      </section>
+      {intro && (
+        <section className="producers-intro">
+          <h2>{intro.producers_intro_heading}</h2>
+          <div>
+            <p>{intro.producers_intro_content}</p>
+          </div>
+        </section>
+      )}
 
       <h3 className="our-producers">Våra producenter</h3>
       <hr className="section-divider" />

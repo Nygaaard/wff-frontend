@@ -33,22 +33,23 @@
     color: #444;
 }
 
+/* Media queries korrekt inuti */
 @media (max-width: 1024px) {
-    .wineCardWrapper {
+    .winesList .wineRow .wineCardWrapper {
         flex: 0 0 33.3333%;
         max-width: 33.3333%;
     }
 }
 
 @media (max-width: 768px) {
-    .wineCardWrapper {
+    .winesList .wineRow .wineCardWrapper {
         flex: 0 0 50%;
         max-width: 50%;
     }
 }
 
 @media (max-width: 480px) {
-    .wineCardWrapper {
+    .winesList .wineRow .wineCardWrapper {
         flex: 0 0 100%;
         max-width: 100%;
     }

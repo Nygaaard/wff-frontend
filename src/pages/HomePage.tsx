@@ -10,12 +10,17 @@ import insta3 from "../assets/images/insta3.png";
 import insta4 from "../assets/images/insta4.png";
 import insta5 from "../assets/images/insta5.png";
 import insta6 from "../assets/images/insta6.png";
+import { HomePageAboutSection } from "../types/Interfaces-wp/HomePage-about";
 
 const HomePage = () => {
   const [wines, setWines] = useState<WineProps[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
+  const [aboutSection, setAboutSection] = useState<HomePageAboutSection | null>(
+    null
+  );
 
+  // Hämta viner
   useEffect(() => {
     const fetchWines = async () => {
       try {
@@ -37,6 +42,35 @@ const HomePage = () => {
     };
 
     fetchWines();
+  }, []);
+
+  // Hämta About-sektionen
+  useEffect(() => {
+    const fetchAboutSection = async () => {
+      try {
+        const res = await fetch(
+          "http://localhost/wine_for_friends/wp-json/wp/v2/pages?slug=startsida-om"
+        );
+        const data = await res.json();
+        if (data.length > 0) {
+          const aboutData = data[0]?.acf;
+
+          setAboutSection({
+            title: aboutData?.about_heading || "Default Title",
+            subtitle: aboutData?.about_subheading || "Default Subtitle",
+            content: aboutData?.about_text || "Default content text",
+            image: {
+              url: aboutData?.about_image?.url || frontpageAboutImage,
+              alt: aboutData?.about_image?.alt || "Default image",
+            },
+          });
+        }
+      } catch (error) {
+        console.error("Kunde inte hämta om-sektionen", error);
+      }
+    };
+
+    fetchAboutSection();
   }, []);
 
   return (
@@ -80,33 +114,30 @@ const HomePage = () => {
           ))}
         </div>
       </section>
-      <section className="frontpage-about-slice">
-        <h3>
-          WHY LANGHE WHEN YOU
-          <br></br>
-          <span className="h3-under">CAN DRINK MONFERRATO</span>
-        </h3>
-        <div className="frontpage-about">
-          <img
-            src={frontpageAboutImage}
-            alt="Vänner"
-            className="frontpage-about-image"
-          />
-          <div className="frontpage-about-div">
-            <p>
-              Vår filosofi är att göra vin tillgängligt på ett enkelt och
-              förståeligt sätt samt att förmedla dess historia. Även om vi inte
-              är fullblodsproffs (även om en del tror det) så älskar vi vin och
-              historien de förmedlar. Vi tycker att vin bäst avnjuts i gott
-              sällskap, med vänner och familj, och sättet det bidrar till att
-              skapa och dela egna minnen och upplevelser.
-            </p>
-            <Link to="/about" className="link">
-              Läs mer om oss
-            </Link>
+
+      {aboutSection && (
+        <section className="frontpage-about-slice">
+          <h3>
+            {aboutSection.title}
+            <br />
+            <span className="h3-under">{aboutSection.subtitle}</span>
+          </h3>
+          <div className="frontpage-about">
+            <img
+              src={aboutSection.image.url}
+              alt={aboutSection.image.alt}
+              className="frontpage-about-image"
+            />
+            <div className="frontpage-about-div">
+              <p>{aboutSection.content}</p>
+              <Link to="/about" className="link">
+                Läs mer om oss
+              </Link>
+            </div>
           </div>
-        </div>
-      </section>
+        </section>
+      )}
+
       <section className="instagram-section">
         <hr className="horizontal-line" />
         <div className="instagram-text-container">
@@ -114,24 +145,11 @@ const HomePage = () => {
           <p className="instagram-handle">@wineforfriends.se</p>
         </div>
         <div className="instagram-carousel">
-          <div className="carousel-image">
-            <img src={insta1} alt="Instagram 1" />
-          </div>
-          <div className="carousel-image">
-            <img src={insta2} alt="Instagram 2" />
-          </div>
-          <div className="carousel-image">
-            <img src={insta3} alt="Instagram 3" />
-          </div>
-          <div className="carousel-image">
-            <img src={insta4} alt="Instagram 4" />
-          </div>
-          <div className="carousel-image">
-            <img src={insta5} alt="Instagram 5" />
-          </div>
-          <div className="carousel-image">
-            <img src={insta6} alt="Instagram 6" />
-          </div>
+          {[insta1, insta2, insta3, insta4, insta5, insta6].map((src, i) => (
+            <div className="carousel-image" key={i}>
+              <img src={src} alt={`Instagram ${i + 1}`} />
+            </div>
+          ))}
         </div>
       </section>
     </div>
