@@ -60,4 +60,18 @@
         border-top: 1px solid #000;
         width: 100%;
     }
+
+    .producers-content {
+        max-width: 780px;
+        margin: 0 auto;
+
+        ul {
+            padding-left: 1.2rem;
+            list-style-type: disc;
+
+            li {
+                margin-bottom: 0.8rem;
+            }
+        }
+    }
 }
