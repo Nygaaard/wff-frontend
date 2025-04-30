@@ -1,78 +1,86 @@
+import { useEffect, useState } from "react";
+import ContactCard from "../components/ContactCard";
+import { ContactPageData } from "../types/Interfaces-wp/ContactPage";
+
 const ContactPage = () => {
+  const [contactData, setContactData] = useState<ContactPageData | null>(null);
+  const [loading, setLoading] = useState<boolean>(true);
+  const [error, setError] = useState<string | null>(null);
+
+  useEffect(() => {
+    const fetchContactData = async () => {
+      try {
+        const res = await fetch(
+          "http://localhost/wine_for_friends/wp-json/wp/v2/pages?slug=kontakt"
+        );
+        const data = await res.json();
+
+        if (data.length > 0 && data[0].acf) {
+          setContactData(data[0].acf as ContactPageData);
+        } else {
+          setError("Ingen data hittades.");
+        }
+      } catch (err) {
+        console.error("Fel vid hämtning av kontaktdata:", err);
+        setError("Kunde inte hämta data.");
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchContactData();
+  }, []);
+
+  if (loading) return <p>Laddar...</p>;
+  if (error) return <p className="error">{error}</p>;
+  if (!contactData) return null;
+
   return (
     <div className="contact-page">
       <h1>Kontakt</h1>
 
-      <div className="location-block">
-        <h2>ÅRE</h2>
-        <div className="contact-person">
-          <p className="name">Anders Bromander</p>
-          <p>
-            <a href="mailto:anders@wineforfriends.se">
-              anders@wineforfriends.se
-            </a>
-          </p>
-          <p>
-            <a href="tel:0738762242">073-876 22 42</a>
-          </p>
-        </div>
-      </div>
+      <ContactCard
+        location={contactData.contact_one_location}
+        name={contactData.contact_one_name}
+        email={contactData.contact_one_email}
+        phone={contactData.contact_one_number}
+      />
 
       <hr className="section-divider divider" />
 
-      <div className="location-block">
-        <h2>VÄSTERÅS</h2>
-        <div className="contact-person">
-          <p className="name">Max Svärd</p>
-          <p>
-            <a href="mailto:max@wineforfriends.se">max@wineforfriends.se</a>
-          </p>
-          <p>
-            <a href="tel:0735446631">073-544 66 31</a>
-          </p>
-        </div>
-      </div>
+      <ContactCard
+        location={contactData.contact_two_location}
+        name={contactData.contact_two_name}
+        email={contactData.contact_two_email}
+        phone={contactData.contact_two_number}
+      />
 
       <hr className="section-divider divider" />
 
-      <div className="location-block">
-        <h2>STOCKHOLM</h2>
-        <div className="contact-person">
-          <p className="name">Tony Kirmo</p>
-          <p>
-            <a href="mailto:tony@wineforfriends.se">tony@wineforfriends.se</a>
-          </p>
-          <p>
-            <a href="tel:0704288041">070-428 80 41</a>
-          </p>
-        </div>
-        <div className="contact-person">
-          <p className="name">Tomas Bromander</p>
-          <p>
-            <a href="mailto:tomas@wineforfriends.se">tomas@wineforfriends.se</a>
-          </p>
-          <p>
-            <a href="tel:0708559925">070-855 99 25</a>
-          </p>
-        </div>
-      </div>
+      <ContactCard
+        location={contactData.contact_three_location}
+        name={contactData.contact_three_name}
+        email={contactData.contact_three_email}
+        phone={contactData.contact_three_number}
+      />
 
       <hr className="section-divider divider" />
 
-      <div className="location-block">
-        <h2>HELSINGBORG</h2>
-        <div className="contact-person">
-          <p className="name">Daniel Stenberg</p>
-          <p>
-            <a href="mailto:daniel@wineforfriends.se">
-              daniel@wineforfriends.se
-            </a>
-          </p>
-          <p>
-            <a href="tel:0729836585">072-983 65 85</a>
-          </p>
-        </div>
-      </div>
+      <ContactCard
+        location={contactData.contact_four_location}
+        name={contactData.contact_four_name}
+        email={contactData.contact_four_email}
+        phone={contactData.contact_four_number}
+      />
+
+      <hr className="section-divider divider" />
+
+      <ContactCard
+        location={contactData.contact_five_location}
+        name={contactData.contact_five_name}
+        email={contactData.contact_five_email}
+        phone={contactData.contact_five_number}
+      />
     </div>
   );
 };
