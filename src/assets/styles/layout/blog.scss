@@ -1,17 +1,17 @@
 .blog-page {
     max-width: 900px;
     margin: 0 auto;
-    padding: 4rem 2rem; // Mindre padding på hela sidan
+    padding: 4rem 2rem;
     display: flex;
     flex-direction: column;
     align-items: center;
 
     h1 {
-        text-align: center;
-        font-size: 3rem;
-        margin-bottom: 3rem; // Mindre marginal mellan rubrik och blogginlägg
+        font-size: 2.8rem;
         font-weight: 700;
-        color: #333;
+        color: #2c2c2c;
+        text-align: center;
+        margin-bottom: 2.5rem;
         text-transform: uppercase;
         letter-spacing: 1px;
     }
@@ -19,73 +19,76 @@
     .blog-list {
         display: flex;
         flex-direction: column;
-        gap: 3rem;
+        gap: 3.5rem;
         width: 100%;
         align-items: center;
     }
 
     .blog-post {
+        width: 100%;
+        padding: 1.5rem 2rem;
+        background-color: #ffffff;
+        border-radius: 12px;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
         display: flex;
         flex-direction: column;
-        align-items: center;
-        width: 100%;
-        background-color: #fff;
-        border-radius: 10px;
-        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-        padding: 2rem;
-        overflow: hidden;
+        gap: 1rem;
+        transition: box-shadow 0.3s ease;
 
         &:hover {
-            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
         }
 
         .post-content {
+            display: flex;
+            flex-direction: column;
+            gap: 1.2rem;
             width: 100%;
-            text-align: left;
-            margin-bottom: 1.5rem; // Gör textavståndet jämnt mellan bild och datum
+        }
 
-            h2 {
-                font-size: 2.2rem;
-                margin-bottom: 1rem; // Lite större mellanrum mellan rubrik och text
-                font-weight: 600;
-                color: #2c2c2c;
-                line-height: 1.4;
-                text-transform: capitalize;
-            }
+        h2 {
+            font-size: 2rem;
+            font-weight: 600;
+            color: #222;
+            margin-bottom: 0.5rem;
+            line-height: 1.4;
+        }
 
-            .date {
-                font-size: 1rem;
-                color: #888;
-                margin-top: 0.5rem; // Justerat så att datumet ligger närmare texten
-                margin-bottom: 0; // Ingen nedre marginal för att undvika onödigt utrymme
-            }
+        .date {
+            font-size: 1rem;
+            color: #777;
+            margin-top: 0.5rem;
         }
 
         .post-image {
             width: 100%;
+            margin-bottom: 1.5rem;
 
             img {
                 width: 100%;
                 height: auto;
-                border-radius: 8px;
-                margin-bottom: 1.5rem;
+                border-radius: 10px;
                 object-fit: cover;
             }
         }
 
         .post-text {
             font-size: 1.15rem;
-            line-height: 1.8;
             color: #444;
+            line-height: 1.8;
             white-space: pre-line;
-            margin-bottom: 1.5rem; // Jämn marginal mellan text och divider
         }
     }
 
     .section-divider {
         width: 80%;
-        margin: 3rem 0;
+        margin: 2rem 0;
         border: none;
         border-top: 1px solid #ddd;
+    }
+
+    .error {
+        color: red;
+        font-weight: 500;
     }
 }
