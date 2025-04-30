@@ -48,6 +48,14 @@ const ProducersPage: React.FC = () => {
     fetchIntro();
   }, []);
 
+  const getShortDescription = (text: string): string => {
+    const sentence = text.match(/[^.!?]*[.!?]/g);
+    if (sentence && sentence.length > 0) {
+      return sentence[0];
+    }
+    return text;
+  };
+
   return (
     <div className="producers-page">
       {loading && <p>Laddar...</p>}
@@ -73,7 +81,10 @@ const ProducersPage: React.FC = () => {
             featured_image_url={producer.featured_image_url}
             title={producer.title}
             producer_country={producer.producer_country}
-            producer_description={producer.producer_description}
+            // Förkorta beskrivningen här
+            producer_description={getShortDescription(
+              producer.producer_description
+            )}
             slug={producer.slug}
           />
         ))}

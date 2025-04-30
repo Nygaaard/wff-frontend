@@ -62,7 +62,7 @@ const ProducerPage: React.FC = () => {
   const chunkWines = (arr: WineProps[], size: number): WineProps[][] => {
     const result = [];
     for (let i = 0; i < arr.length; i += size) {
-      result.push(arr.slice(i + 0, i + size));
+      result.push(arr.slice(i, i + size));
     }
     return result;
   };
@@ -83,7 +83,7 @@ const ProducerPage: React.FC = () => {
         slug={producer.slug}
       />
 
-      {producerWines.length > 0 && (
+      {producerWines.length > 0 ? (
         <section className="winesList">
           {chunkWines(producerWines, 4).map((row, rowIndex) => (
             <div className="wineRow" key={rowIndex}>
@@ -101,6 +101,8 @@ const ProducerPage: React.FC = () => {
             </div>
           ))}
         </section>
+      ) : (
+        <p>Inga viner hittades för denna producent.</p>
       )}
     </div>
   );
