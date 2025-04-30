@@ -1,23 +1,25 @@
 .blog-page {
     max-width: 900px;
     margin: 0 auto;
-    padding: 5rem 2rem; 
+    padding: 4rem 2rem; // Mindre padding på hela sidan
     display: flex;
     flex-direction: column;
     align-items: center;
 
     h1 {
         text-align: center;
-        font-size: 2.8rem;
-        margin-bottom: 4rem;
+        font-size: 3rem;
+        margin-bottom: 3rem; // Mindre marginal mellan rubrik och blogginlägg
         font-weight: 700;
-        color: #2c2c2c;
+        color: #333;
+        text-transform: uppercase;
+        letter-spacing: 1px;
     }
 
     .blog-list {
         display: flex;
         flex-direction: column;
-        gap: 4rem;
+        gap: 3rem;
         width: 100%;
         align-items: center;
     }
@@ -27,47 +29,63 @@
         flex-direction: column;
         align-items: center;
         width: 100%;
-        text-align: left; 
+        background-color: #fff;
+        border-radius: 10px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        padding: 2rem;
+        overflow: hidden;
+
+        &:hover {
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+        }
 
         .post-content {
+            width: 100%;
             text-align: left;
+            margin-bottom: 1.5rem; // Gör textavståndet jämnt mellan bild och datum
 
             h2 {
-                font-size: 2rem;
-                margin-bottom: 0.3rem;
+                font-size: 2.2rem;
+                margin-bottom: 1rem; // Lite större mellanrum mellan rubrik och text
                 font-weight: 600;
-                color: #222;
-                padding: 1rem;
+                color: #2c2c2c;
+                line-height: 1.4;
+                text-transform: capitalize;
             }
 
             .date {
-                font-size: 0.9rem;
-                color: rgba(136, 136, 136, 0.7);  
-                margin-top: 1rem;
-                margin-bottom: 1rem;
+                font-size: 1rem;
+                color: #888;
+                margin-top: 0.5rem; // Justerat så att datumet ligger närmare texten
+                margin-bottom: 0; // Ingen nedre marginal för att undvika onödigt utrymme
             }
         }
 
-        img {
-            width: 80%;
-            max-width: 600px;
-            height: auto;
-            border-radius: 0.75rem;
-            margin-bottom: 1.5rem;
+        .post-image {
+            width: 100%;
+
+            img {
+                width: 100%;
+                height: auto;
+                border-radius: 8px;
+                margin-bottom: 1.5rem;
+                object-fit: cover;
+            }
         }
 
-        .text {
-            font-size: 1.05rem;
+        .post-text {
+            font-size: 1.15rem;
             line-height: 1.8;
-            color: #333;
+            color: #444;
             white-space: pre-line;
+            margin-bottom: 1.5rem; // Jämn marginal mellan text och divider
         }
     }
 
     .section-divider {
+        width: 80%;
         margin: 3rem 0;
         border: none;
         border-top: 1px solid #ddd;
-        width: 80%;
     }
 }
