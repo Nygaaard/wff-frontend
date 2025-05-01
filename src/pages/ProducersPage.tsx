@@ -74,20 +74,21 @@ const ProducersPage: React.FC = () => {
       <hr className="section-divider" />
 
       <section className="producers-list">
-        {producers.map((producer) => (
-          <ProducerCard
-            id={producer.id}
-            key={producer.id}
-            featured_image_url={producer.featured_image_url}
-            title={producer.title}
-            producer_country={producer.producer_country}
-            // Förkorta beskrivningen här
-            producer_description={getShortDescription(
-              producer.producer_description
-            )}
-            slug={producer.slug}
-          />
-        ))}
+        {producers.map((producer) =>
+          producer.featured_image_url && producer.title ? (
+            <ProducerCard
+              id={producer.id}
+              key={producer.id}
+              featured_image_url={producer.featured_image_url}
+              title={producer.title}
+              producer_country={producer.producer_country}
+              producer_description={getShortDescription(
+                producer.producer_description
+              )}
+              slug={producer.slug}
+            />
+          ) : null
+        )}
       </section>
     </div>
   );

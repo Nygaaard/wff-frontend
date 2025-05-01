@@ -27,7 +27,9 @@ const SpecificWineCard: React.FC<WineI> = ({
       <section className="leftSection">
         <div className="upper">
           <h2>{title.rendered}</h2>
-          <p className="producer">{wff_producent}</p>
+          <p className="producer">
+            {wff_producent?.title || "Ingen producent"}
+          </p>
 
           <div className="categorySizeRow">
             {wff_kategori && (

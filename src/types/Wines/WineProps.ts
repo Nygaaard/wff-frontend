@@ -5,7 +5,10 @@ export interface WineProps {
   title: {
     rendered: string;
   };
-  wff_producent: string;
+  wff_producent: {
+    id: number;
+    title: string;
+  };  
   wff_pris: string;
   wff_kategori: string;
 }
