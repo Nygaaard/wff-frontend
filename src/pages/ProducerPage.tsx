@@ -73,7 +73,7 @@ const ProducerPage: React.FC = () => {
   if (!producer) return <p>Producenten hittades inte.</p>;
 
   return (
-    <div>
+    <div className="producer-container">
       <SpecificProducerCard
         id={producer.id}
         key={producer.id}
@@ -83,7 +83,7 @@ const ProducerPage: React.FC = () => {
         featured_image_url={producer.featured_image_url}
         slug={producer.slug}
       />
-
+      <h3>Våra viner från {producer.title.rendered}</h3>
       {producerWines.length > 0 ? (
         <section className="winesList">
           {chunkWines(producerWines, 4).map((row, rowIndex) => (
