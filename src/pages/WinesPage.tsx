@@ -10,7 +10,7 @@ const WinesPage = () => {
   const [error, setError] = useState<string | null>(null);
   const [categories, setCategories] = useState<string[]>([]);
   const [countries, setCountries] = useState<string[]>([]);
-  const [grapes, setGrapes] = useState<string[]>([]);
+  const [producers, setProducers] = useState<string[]>([]);
 
   const [selectedCategory, setSelectedCategory] = useState("");
   const [selectedCountry, setSelectedCountry] = useState("");
@@ -47,14 +47,14 @@ const WinesPage = () => {
 
     setCategories(unique(data.map((w) => w.wff_varugrupp)));
     setCountries(unique(data.map((w) => w.wff_land)));
-    setGrapes(unique(data.map((w) => w.wff_producent.title)));
+    setProducers(unique(data.map((w) => w.wff_producent?.title)));
   };
 
   const handleCardClick = (slug: string) => {
     navigate(`/wine/${slug}`);
   };
 
-  const handleFilterChange = () => {
+  useEffect(() => {
     let filtered = wines;
 
     if (selectedCategory) {
@@ -65,16 +65,12 @@ const WinesPage = () => {
     }
     if (selectedProducer) {
       filtered = filtered.filter(
-        (w) => w.wff_producent.title === selectedProducer
+        (w) => w.wff_producent?.title === selectedProducer
       );
     }
 
     setFilteredWines(filtered);
-  };
-
-  useEffect(() => {
-    handleFilterChange();
-  }, [selectedCategory, selectedCountry, selectedProducer]);
+  }, [selectedCategory, selectedCountry, selectedProducer, wines]);
 
   const chunkWines = (arr: WineProps[], size: number): WineProps[][] => {
     const result = [];
@@ -122,9 +118,9 @@ const WinesPage = () => {
               value={selectedProducer}
             >
               <option value="">Välj producent</option>
-              {grapes.map((g, i) => (
-                <option key={i} value={g}>
-                  {g}
+              {producers.map((p, i) => (
+                <option key={i} value={p}>
+                  {p}
                 </option>
               ))}
             </select>
