@@ -25,4 +25,5 @@ export interface WineI {
   wff_vinifikation?: string;
   wff_systembolaget_url?: string;
   featured_image_url?: string;
+  wff_varugrupp?: string;
 }

@@ -33,7 +33,37 @@
     color: #444;
 }
 
-/* Media queries korrekt inuti */
+.filters select {
+    width: 150px;
+    padding: 0.5rem;
+    margin-right: 1rem;
+    font-size: 1rem;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    background-color: #fff;
+    color: #333;
+}
+
+.filters select:focus {
+    outline: none;
+    border-color: #007bff;
+    box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+}
+
+.filters {
+    display: flex;
+    gap: 1rem;
+    justify-content: flex-start;
+    flex-wrap: wrap;
+    margin-bottom: 1rem;
+}
+
+.wineHeader {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
 @media (max-width: 1024px) {
     .winesList .wineRow .wineCardWrapper {
         flex: 0 0 33.3333%;

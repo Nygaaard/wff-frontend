@@ -11,6 +11,7 @@ import insta4 from "../assets/images/insta4.png";
 import insta5 from "../assets/images/insta5.png";
 import insta6 from "../assets/images/insta6.png";
 import { HomePageAboutSection } from "../types/Interfaces-wp/HomePage-about";
+import { HeroSection } from "../types/Interfaces-wp/HomePage-hero";
 
 const HomePage = () => {
   const [wines, setWines] = useState<WineProps[]>([]);
@@ -19,6 +20,7 @@ const HomePage = () => {
   const [aboutSection, setAboutSection] = useState<HomePageAboutSection | null>(
     null
   );
+  const [heroSection, setHeroSection] = useState<HeroSection | null>(null);
 
   // Hämta viner
   useEffect(() => {
@@ -27,11 +29,7 @@ const HomePage = () => {
         const response = await fetch(
           "http://localhost/wine_for_friends/wp-json/wp/v2/wine"
         );
-
-        if (!response.ok) {
-          throw new Error();
-        }
-
+        if (!response.ok) throw new Error();
         const data = await response.json();
         setWines(data);
       } catch {
@@ -40,8 +38,35 @@ const HomePage = () => {
         setLoading(false);
       }
     };
-
     fetchWines();
+  }, []);
+
+  // Hämta Hero-sektionen
+  useEffect(() => {
+    const fetchHeroSection = async () => {
+      try {
+        const res = await fetch(
+          "http://localhost/wine_for_friends/wp-json/wp/v2/pages?slug=startsida-hero"
+        );
+        const data = await res.json();
+
+        if (data.length > 0) {
+          const acf = data[0]?.acf;
+
+          setHeroSection({
+            text: acf?.hero_text || "Default hero text",
+            image: {
+              url: acf?.hero_image?.url || image,
+              alt: acf?.hero_image?.alt || "Hero image",
+            },
+          });
+        }
+      } catch (error) {
+        console.error("Kunde inte hämta hero-sektionen", error);
+      }
+    };
+
+    fetchHeroSection();
   }, []);
 
   // Hämta About-sektionen
@@ -49,24 +74,25 @@ const HomePage = () => {
     const fetchAboutSection = async () => {
       try {
         const res = await fetch(
-          "http://localhost/wine_for_friends/wp-json/wp/v2/pages?slug=startsida-om"
+          "http://localhost/wine_for_friends/wp-json/wp/v2/pages?slug=startsida"
         );
         const data = await res.json();
+
         if (data.length > 0) {
-          const aboutData = data[0]?.acf;
+          const acf = data[0]?.acf;
 
           setAboutSection({
-            title: aboutData?.about_heading || "Default Title",
-            subtitle: aboutData?.about_subheading || "Default Subtitle",
-            content: aboutData?.about_text || "Default content text",
+            title: acf?.about_heading || "Default Title",
+            subtitle: acf?.about_subheading || "Default Subtitle",
+            content: acf?.about_text || "Default content text",
             image: {
-              url: aboutData?.about_image?.url || frontpageAboutImage,
-              alt: aboutData?.about_image?.alt || "Default image",
+              url: acf?.about_image?.url || frontpageAboutImage,
+              alt: acf?.about_image?.alt || "Default image",
             },
           });
         }
       } catch (error) {
-        console.error("Kunde inte hämta om-sektionen", error);
+        console.error("Kunde inte hämta about-sektionen", error);
       }
     };
 
@@ -75,17 +101,18 @@ const HomePage = () => {
 
   return (
     <div>
-      <section className="frontpage-upper-slice">
-        <img src={image} alt="Friends" className="frontpage-image" />
-        <div className="frontpage-info">
-          <p>
-            Ett namn som talar för sig självt och speglar vår filosofi. Vi tror
-            att vin är som bäst när det delas – oavsett om det är med gamla
-            vänner, nya bekantskaper, kollegor eller familj. Det viktiga är de
-            stunder som uppstår, där samtalen flödar och gemenskapen växer
-          </p>
-        </div>
-      </section>
+      {heroSection && (
+        <section className="frontpage-upper-slice">
+          <img
+            src={heroSection.image.url}
+            alt={heroSection.image.alt}
+            className="frontpage-image"
+          />
+          <div className="frontpage-info">
+            <p>{heroSection.text}</p>
+          </div>
+        </section>
+      )}
 
       <section className="upper">
         <div className="wineHeader">

@@ -11,4 +11,8 @@ export interface WineProps {
   };  
   wff_pris: string;
   wff_kategori: string;
+  wff_varugrupp?: string;
+  wff_land?: string;
+  wff_druva?: string;
+
 }

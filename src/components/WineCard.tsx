@@ -7,14 +7,6 @@ const WineCard: React.FC<WineProps> = ({
   wff_pris,
   wff_kategori,
 }) => {
-  console.log("WineCard props:", {
-    featured_image_url,
-    title,
-    wff_producent,
-    wff_pris,
-    wff_kategori,
-  });
-
   return (
     <article className="card">
       <img

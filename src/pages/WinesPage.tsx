@@ -5,23 +5,32 @@ import { useNavigate } from "react-router-dom";
 
 const WinesPage = () => {
   const [wines, setWines] = useState<WineProps[]>([]);
+  const [filteredWines, setFilteredWines] = useState<WineProps[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
+  const [categories, setCategories] = useState<string[]>([]);
+  const [countries, setCountries] = useState<string[]>([]);
+  const [grapes, setGrapes] = useState<string[]>([]);
+
+  const [selectedCategory, setSelectedCategory] = useState("");
+  const [selectedCountry, setSelectedCountry] = useState("");
+  const [selectedProducer, setSelectedProducer] = useState("");
+
   const navigate = useNavigate();
 
   useEffect(() => {
     const fetchWines = async () => {
       try {
         const response = await fetch(
-          "http://localhost/wine_for_friends/wp-json/wp/v2/wine"
+          "http://localhost/wine_for_friends/wp-json/wp/v2/wine?per_page=100"
         );
 
-        if (!response.ok) {
-          throw new Error();
-        }
-
-        const data = await response.json();
+        if (!response.ok) throw new Error();
+        const data: WineProps[] = await response.json();
+        console.log(data);
         setWines(data);
+        setFilteredWines(data);
+        extractFilterOptions(data);
       } catch {
         setError("Något gick fel vid hämtning av viner...");
       } finally {
@@ -32,9 +41,40 @@ const WinesPage = () => {
     fetchWines();
   }, []);
 
+  const extractFilterOptions = (data: WineProps[]) => {
+    const unique = (arr: (string | undefined)[]) =>
+      Array.from(new Set(arr.filter(Boolean))) as string[];
+
+    setCategories(unique(data.map((w) => w.wff_varugrupp)));
+    setCountries(unique(data.map((w) => w.wff_land)));
+    setGrapes(unique(data.map((w) => w.wff_producent.title)));
+  };
+
   const handleCardClick = (slug: string) => {
     navigate(`/wine/${slug}`);
   };
+
+  const handleFilterChange = () => {
+    let filtered = wines;
+
+    if (selectedCategory) {
+      filtered = filtered.filter((w) => w.wff_varugrupp === selectedCategory);
+    }
+    if (selectedCountry) {
+      filtered = filtered.filter((w) => w.wff_land === selectedCountry);
+    }
+    if (selectedProducer) {
+      filtered = filtered.filter(
+        (w) => w.wff_producent.title === selectedProducer
+      );
+    }
+
+    setFilteredWines(filtered);
+  };
+
+  useEffect(() => {
+    handleFilterChange();
+  }, [selectedCategory, selectedCountry, selectedProducer]);
 
   const chunkWines = (arr: WineProps[], size: number): WineProps[][] => {
     const result = [];
@@ -44,7 +84,7 @@ const WinesPage = () => {
     return result;
   };
 
-  const wineRows = chunkWines(wines, 4); // 4 per rad
+  const wineRows = chunkWines(filteredWines, 4);
 
   return (
     <div>
@@ -52,7 +92,44 @@ const WinesPage = () => {
       {error && <p className="error">{error}</p>}
 
       <section className="upper">
-        <h2>Våra viner</h2>
+        <div className="wineHeader">
+          <h2 className="frontpage-winesList">Våra viner</h2>
+          <div className="filters">
+            <select
+              onChange={(e) => setSelectedCategory(e.target.value)}
+              value={selectedCategory}
+            >
+              <option value="">Varugrupp</option>
+              {categories.map((cat, i) => (
+                <option key={i} value={cat}>
+                  {cat}
+                </option>
+              ))}
+            </select>
+            <select
+              onChange={(e) => setSelectedCountry(e.target.value)}
+              value={selectedCountry}
+            >
+              <option value="">Välj land</option>
+              {countries.map((c, i) => (
+                <option key={i} value={c}>
+                  {c}
+                </option>
+              ))}
+            </select>
+            <select
+              onChange={(e) => setSelectedProducer(e.target.value)}
+              value={selectedProducer}
+            >
+              <option value="">Välj producent</option>
+              {grapes.map((g, i) => (
+                <option key={i} value={g}>
+                  {g}
+                </option>
+              ))}
+            </select>
+          </div>
+        </div>
       </section>
 
       <section className="winesList">
