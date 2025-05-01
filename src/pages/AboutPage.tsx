@@ -62,18 +62,19 @@ const AboutWFF = () => {
         <h2>Lite om våra nya vänner</h2>
         <div className="producers-content">
           <ul>
-            {aboutData.about_producers
-              .split("\n")
-              .filter((line) => line.trim() !== "")
-              .map((line, index) => {
-                const [title, ...rest] = line.split("–");
-                return (
-                  <li key={index}>
-                    <strong>{title.trim()}</strong>
-                    {rest.length > 0 ? ` – ${rest.join("–").trim()}` : ""}
-                  </li>
-                );
-              })}
+            {aboutData.about_producers &&
+              aboutData.about_producers
+                .split("\n")
+                .filter((line) => line.trim() !== "")
+                .map((line, index) => {
+                  const [title, ...rest] = line.split("–");
+                  return (
+                    <li key={index}>
+                      <strong>{title.trim()}</strong>
+                      {rest.length > 0 ? ` – ${rest.join("–").trim()}` : ""}
+                    </li>
+                  );
+                })}
           </ul>
         </div>
       </section>

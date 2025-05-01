@@ -53,6 +53,8 @@
 
 @media (max-width: 768px) {
     .instagram-section {
+        margin: 0 auto;
+        width: 100%;
         .instagram-carousel {
             flex-direction: column; 
             height: auto;
@@ -61,6 +63,7 @@
         .carousel-image {
             width: 100%; 
             height: auto; 
+            margin: 0 auto;
         }
     }
 }
