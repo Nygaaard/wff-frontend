@@ -20,6 +20,20 @@
     }
 }
 
-.frontpage-winesList {
-    margin-top: 60px;
+
+.wineHeader {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+}
+
+.allWinesLink {
+    color: #888;
+    text-decoration: none;
+    font-size: 1rem;
+}
+
+.allWinesLink:hover {
+    text-decoration: underline;
 }

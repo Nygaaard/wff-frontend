@@ -88,7 +88,12 @@ const HomePage = () => {
       </section>
 
       <section className="upper">
-        <h2 className="frontpage-winesList">Våra viner</h2>
+        <div className="wineHeader">
+          <h2 className="frontpage-winesList">Våra viner</h2>
+          <Link to="/wines" className="allWinesLink">
+            Alla våra viner
+          </Link>
+        </div>
       </section>
 
       {loading && <p>Laddar...</p>}
