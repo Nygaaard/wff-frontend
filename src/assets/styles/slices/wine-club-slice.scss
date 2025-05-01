@@ -64,8 +64,8 @@
         flex: 1;
         display: flex;
         justify-content: space-between;
-        align-items: flex-end; 
-        padding-top: 100px; 
+        align-items: flex-end;
+        padding-top: 100px;
 
         .bottle {
             width: 162px;
@@ -74,42 +74,43 @@
         }
 
         .top {
-            align-self: flex-start; 
-            margin-bottom: -100px; 
+            align-self: flex-start;
+            margin-bottom: -100px;
         }
 
         .bottom {
-            margin-top: -50px; 
+            margin-top: -50px;
         }
     }
 }
 
-// Responsivitet
-@media (max-width: 768px) {
+@media (max-width: 1000px) {
     .wineclub-section {
         flex-direction: column;
-
-        .left {
-            margin-bottom: 30px;
-            padding-right: 0;
-        }
+        align-items: center;
+        margin: 0 auto;
 
         .right {
-            flex-direction: column;
-            align-items: center;
-            padding-top: 0;
+            display: none;
+        }
 
-            .bottle {
-                width: 120px;
-                height: auto;
-                margin: 0 0 10px 0;
-            }
-
-            .top,
-            .bottom {
-                margin: 0;
-                align-self: center;
+        .left {
+            padding-right: 0;
+            margin-bottom: 30px;
+            p {
+                width: 60%;
             }
         }
     }
+}
+
+@media (max-width: 768px) {
+    .wineclub-section{
+        .left {
+            p {
+                width: 90%;
+            }
+        }
+    }
+    
 }

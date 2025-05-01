@@ -47,7 +47,8 @@ const ProducerPage: React.FC = () => {
           );
           const data = await response.json();
           const filtered = data.filter(
-            (wine: WineProps) => wine.wff_producent === producer.title.rendered
+            (wine: WineProps) =>
+              wine.wff_producent.title === producer.title.rendered
           );
           setProducerWines(filtered);
         } catch {

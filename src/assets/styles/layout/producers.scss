@@ -1,7 +1,7 @@
 @import "../variables/fonts.scss";
 
 .producers-page {
-    width: 90%;
+    width: 100%;
     margin: 0 auto;
     margin-top: 5rem;
     padding: 2rem 0;
@@ -45,11 +45,23 @@
 
     .producers-list {
         display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+        grid-template-columns: 1fr; // en kolumn som fyller bredden
         gap: 2rem;
-        
+
         &>* {
             height: 100%;
+            width: 100%;
+            margin: 0 auto;
+        }
+
+        @media (min-width: 768px) {
+            grid-template-columns: repeat(2, 1fr);
+            gap: 2rem;
+
+            &>* {
+                width: 100%;
+                margin: 0; // inga extra marginaler i grid
+            }
         }
     }
 }
