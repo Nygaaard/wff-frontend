@@ -1,3 +1,4 @@
+import { useState } from "react";
 import footerImageOne from "../assets/images/footer-image1.png";
 import footerImageTwo from "../assets/images/footer-image2.png";
 import footerImageThree from "../assets/images/footer-image3.png";
@@ -6,6 +7,51 @@ import footerIconRight from "../assets/images/footer-icon-right.png";
 import wineForFriends from "../assets/images/wine-for-friends.png";
 
 const Footer = () => {
+  const [email, setEmail] = useState<string>("");
+  const [message, setMessage] = useState<string>("");
+  const [loading, setLoading] = useState<boolean>(false);
+
+  const handleEmailChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
+    setEmail(e.target.value);
+  };
+
+  const handleSubmit = async (e: React.FormEvent): Promise<void> => {
+    e.preventDefault();
+
+    if (!email) {
+      setMessage("Vänligen ange en e-postadress.");
+      return;
+    }
+
+    setLoading(true);
+    setMessage("");
+
+    try {
+      const response = await fetch(
+        "http://localhost/wine_for_friends/wp-json/vinklubb/v1/subscribe",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ email }),
+        }
+      );
+
+      const result = await response.json();
+
+      if (response.ok) {
+        setMessage("Tack för att du registrerat dig!");
+      } else {
+        setMessage(result.message || "Något gick fel, försök igen.");
+      }
+    } catch {
+      setMessage("Fel vid anslutning till servern. Försök igen.");
+    } finally {
+      setLoading(false);
+    }
+  };
+
   return (
     <div>
       <section className="wineclub-section">
@@ -18,9 +64,17 @@ const Footer = () => {
             din e-postadress för att få nyheter och uppdateringar.
           </p>
           <div className="email-input-wrapper">
-            <input type="email" placeholder="Din e-postadress" />
-            <button>Registrera</button>
+            <input
+              type="email"
+              value={email}
+              onChange={handleEmailChange}
+              placeholder="Din e-postadress"
+            />
+            <button onClick={handleSubmit} disabled={loading}>
+              {loading ? "Registrerar..." : "Registrera"}
+            </button>
           </div>
+          {message && <p className="message">{message}</p>}{" "}
         </div>
         <div className="right">
           <img
