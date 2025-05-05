@@ -38,6 +38,7 @@ const WinesPage = () => {
       }
     };
 
+    window.scrollTo(0, 0);
     fetchWines();
   }, []);
 

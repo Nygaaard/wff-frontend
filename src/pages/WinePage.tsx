@@ -35,6 +35,7 @@ const WinePage = () => {
       }
     };
 
+    window.scrollTo(0, 0);
     fetchWine();
   }, [slug]);
 

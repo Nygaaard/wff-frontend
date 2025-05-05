@@ -1,4 +1,6 @@
 import { useState } from "react";
+import { ToastContainer, toast } from "react-toastify"; // Importera toastify
+import "react-toastify/dist/ReactToastify.css"; // Importera CSS för toastify
 import footerImageOne from "../assets/images/footer-image1.png";
 import footerImageTwo from "../assets/images/footer-image2.png";
 import footerImageThree from "../assets/images/footer-image3.png";
@@ -8,7 +10,6 @@ import wineForFriends from "../assets/images/wine-for-friends.png";
 
 const Footer = () => {
   const [email, setEmail] = useState<string>("");
-  const [message, setMessage] = useState<string>("");
   const [loading, setLoading] = useState<boolean>(false);
 
   const handleEmailChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
@@ -19,12 +20,11 @@ const Footer = () => {
     e.preventDefault();
 
     if (!email) {
-      setMessage("Vänligen ange en e-postadress.");
+      toast.error("Vänligen ange en e-postadress.");
       return;
     }
 
     setLoading(true);
-    setMessage("");
 
     try {
       const response = await fetch(
@@ -41,12 +41,12 @@ const Footer = () => {
       const result = await response.json();
 
       if (response.ok) {
-        setMessage("Tack för att du registrerat dig!");
+        toast.success("Tack för att du registrerat dig!"); // Visa toast vid lyckad registrering
       } else {
-        setMessage(result.message || "Något gick fel, försök igen.");
+        toast.error(result.message || "Något gick fel, försök igen.");
       }
     } catch {
-      setMessage("Fel vid anslutning till servern. Försök igen.");
+      toast.error("Fel vid anslutning till servern. Försök igen.");
     } finally {
       setLoading(false);
     }
@@ -74,7 +74,6 @@ const Footer = () => {
               {loading ? "Registrerar..." : "Registrera"}
             </button>
           </div>
-          {message && <p className="message">{message}</p>}{" "}
         </div>
         <div className="right">
           <img
@@ -90,6 +89,7 @@ const Footer = () => {
           />
         </div>
       </section>
+
       <section className="footer-bottom">
         <div className="email-text">
           <p>info@wineforfriends.se</p>
@@ -104,6 +104,16 @@ const Footer = () => {
           <img src={wineForFriends} alt="Footer logotyp" />
         </div>
       </section>
+
+      {/* Lägg till ToastContainer här */}
+      <ToastContainer
+        position="top-right"
+        autoClose={5000} // Visa toast i 5 sekunder
+        hideProgressBar={false}
+        newestOnTop
+        closeButton={false}
+        rtl={false}
+      />
     </div>
   );
 };

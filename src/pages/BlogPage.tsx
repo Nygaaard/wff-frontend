@@ -36,6 +36,7 @@ const BlogPage = () => {
       }
     };
 
+    window.scrollTo(0, 0);
     fetchBlogPosts();
   }, []);
 

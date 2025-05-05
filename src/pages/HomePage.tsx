@@ -39,6 +39,7 @@ const HomePage = () => {
       }
     };
     fetchWines();
+    window.scrollTo(0, 0);
   }, []);
 
   // Hämta Hero-sektionen

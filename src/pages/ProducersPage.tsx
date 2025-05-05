@@ -44,6 +44,7 @@ const ProducersPage: React.FC = () => {
       }
     };
 
+    window.scrollTo(0, 0);
     fetchProducers();
     fetchIntro();
   }, []);
