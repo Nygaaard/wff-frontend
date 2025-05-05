@@ -12,6 +12,12 @@ import insta5 from "../assets/images/insta5.png";
 import insta6 from "../assets/images/insta6.png";
 import { HomePageAboutSection } from "../types/Interfaces-wp/HomePage-about";
 import { HeroSection } from "../types/Interfaces-wp/HomePage-hero";
+import { motion } from "framer-motion";
+
+const fadeVariant = {
+  hidden: { opacity: 0, y: 30 },
+  visible: { opacity: 1, y: 0 },
+};
 
 const HomePage = () => {
   const [wines, setWines] = useState<WineProps[]>([]);
@@ -22,7 +28,6 @@ const HomePage = () => {
   );
   const [heroSection, setHeroSection] = useState<HeroSection | null>(null);
 
-  // Hämta viner
   useEffect(() => {
     const fetchWines = async () => {
       try {
@@ -42,7 +47,6 @@ const HomePage = () => {
     window.scrollTo(0, 0);
   }, []);
 
-  // Hämta Hero-sektionen
   useEffect(() => {
     const fetchHeroSection = async () => {
       try {
@@ -50,10 +54,8 @@ const HomePage = () => {
           "http://localhost/wine_for_friends/wp-json/wp/v2/pages?slug=startsida-hero"
         );
         const data = await res.json();
-
         if (data.length > 0) {
           const acf = data[0]?.acf;
-
           setHeroSection({
             text: acf?.hero_text || "Default hero text",
             image: {
@@ -66,11 +68,9 @@ const HomePage = () => {
         console.error("Kunde inte hämta hero-sektionen", error);
       }
     };
-
     fetchHeroSection();
   }, []);
 
-  // Hämta About-sektionen
   useEffect(() => {
     const fetchAboutSection = async () => {
       try {
@@ -78,10 +78,8 @@ const HomePage = () => {
           "http://localhost/wine_for_friends/wp-json/wp/v2/pages?slug=startsida"
         );
         const data = await res.json();
-
         if (data.length > 0) {
           const acf = data[0]?.acf;
-
           setAboutSection({
             title: acf?.about_heading || "Default Title",
             subtitle: acf?.about_subheading || "Default Subtitle",
@@ -96,14 +94,20 @@ const HomePage = () => {
         console.error("Kunde inte hämta about-sektionen", error);
       }
     };
-
     fetchAboutSection();
   }, []);
 
   return (
     <div>
       {heroSection && (
-        <section className="frontpage-upper-slice">
+        <motion.section
+          className="frontpage-upper-slice"
+          variants={fadeVariant}
+          initial="hidden"
+          whileInView="visible"
+          transition={{ duration: 0.8 }}
+          viewport={{ once: true }}
+        >
           <img
             src={heroSection.image.url}
             alt={heroSection.image.alt}
@@ -112,22 +116,36 @@ const HomePage = () => {
           <div className="frontpage-info">
             <p>{heroSection.text}</p>
           </div>
-        </section>
+        </motion.section>
       )}
 
-      <section className="upper">
+      <motion.section
+        className="upper"
+        variants={fadeVariant}
+        initial="hidden"
+        whileInView="visible"
+        transition={{ duration: 0.8 }}
+        viewport={{ once: true }}
+      >
         <div className="wineHeader">
           <h2 className="frontpage-winesList">Våra viner</h2>
           <Link to="/wines" className="allWinesLink">
             Alla våra viner
           </Link>
         </div>
-      </section>
+      </motion.section>
 
       {loading && <p>Laddar...</p>}
       {error && <p className="error">{error}</p>}
 
-      <section className="winesList">
+      <motion.section
+        className="winesList"
+        variants={fadeVariant}
+        initial="hidden"
+        whileInView="visible"
+        transition={{ duration: 0.8 }}
+        viewport={{ once: true }}
+      >
         <div className="wineRow">
           {wines.slice(0, 4).map((wine, i) => (
             <div
@@ -146,10 +164,17 @@ const HomePage = () => {
             </div>
           ))}
         </div>
-      </section>
+      </motion.section>
 
       {aboutSection && (
-        <section className="frontpage-about-slice">
+        <motion.section
+          className="frontpage-about-slice"
+          variants={fadeVariant}
+          initial="hidden"
+          whileInView="visible"
+          transition={{ duration: 0.8 }}
+          viewport={{ once: true }}
+        >
           <h3>
             {aboutSection.title}
             <br />
@@ -168,10 +193,17 @@ const HomePage = () => {
               </Link>
             </div>
           </div>
-        </section>
+        </motion.section>
       )}
 
-      <section className="instagram-section">
+      <motion.section
+        className="instagram-section"
+        variants={fadeVariant}
+        initial="hidden"
+        whileInView="visible"
+        transition={{ duration: 0.8 }}
+        viewport={{ once: true }}
+      >
         <hr className="horizontal-line" />
         <div className="instagram-text-container">
           <h3 className="instagram-title">Följ oss på Instagram</h3>
@@ -184,7 +216,7 @@ const HomePage = () => {
             </div>
           ))}
         </div>
-      </section>
+      </motion.section>
     </div>
   );
 };
