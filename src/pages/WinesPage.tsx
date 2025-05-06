@@ -2,6 +2,7 @@ import WineCard from "../components/WineCard";
 import { useState, useEffect } from "react";
 import { WineProps } from "../types/Wines/WineProps";
 import { useNavigate } from "react-router-dom";
+import { motion } from "framer-motion";
 
 const WinesPage = () => {
   const [wines, setWines] = useState<WineProps[]>([]);
@@ -24,7 +25,6 @@ const WinesPage = () => {
         const response = await fetch(
           "http://localhost/wine_for_friends/wp-json/wp/v2/wine?per_page=100"
         );
-
         if (!response.ok) throw new Error();
         const data: WineProps[] = await response.json();
         console.log(data);
@@ -92,9 +92,11 @@ const WinesPage = () => {
         <div className="wineHeader">
           <h2 className="frontpage-winesList">Våra viner</h2>
           <div className="filters">
-            <select
+            <motion.select
               onChange={(e) => setSelectedCategory(e.target.value)}
               value={selectedCategory}
+              whileHover={{ scale: 1.03 }}
+              transition={{ type: "spring", stiffness: 300 }}
             >
               <option value="">Varugrupp</option>
               {categories.map((cat, i) => (
@@ -102,10 +104,12 @@ const WinesPage = () => {
                   {cat}
                 </option>
               ))}
-            </select>
-            <select
+            </motion.select>
+            <motion.select
               onChange={(e) => setSelectedCountry(e.target.value)}
               value={selectedCountry}
+              whileHover={{ scale: 1.03 }}
+              transition={{ type: "spring", stiffness: 300 }}
             >
               <option value="">Välj land</option>
               {countries.map((c, i) => (
@@ -113,10 +117,12 @@ const WinesPage = () => {
                   {c}
                 </option>
               ))}
-            </select>
-            <select
+            </motion.select>
+            <motion.select
               onChange={(e) => setSelectedProducer(e.target.value)}
               value={selectedProducer}
+              whileHover={{ scale: 1.03 }}
+              transition={{ type: "spring", stiffness: 300 }}
             >
               <option value="">Välj producent</option>
               {producers.map((p, i) => (
@@ -124,21 +130,29 @@ const WinesPage = () => {
                   {p}
                 </option>
               ))}
-            </select>
+            </motion.select>
           </div>
         </div>
       </section>
 
       <section className="winesList">
         {wineRows.map((row, rowIndex) => (
-          <div className="wineRow" key={rowIndex}>
+          <motion.div
+            key={rowIndex}
+            className="wineRow"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.5, staggerChildren: 0.2 }}
+          >
             {row.map((wine, i) => (
-              <div
+              <motion.div
                 key={wine.id}
                 className={`wineCardWrapper ${
                   i !== row.length - 1 ? "withBorderRight" : ""
                 }`}
                 onClick={() => handleCardClick(wine.slug)}
+                whileHover={{ scale: 1.02 }}
+                transition={{ type: "spring", stiffness: 200 }}
               >
                 <WineCard
                   id={wine.id}
@@ -149,9 +163,9 @@ const WinesPage = () => {
                   wff_pris={wine.wff_pris}
                   wff_kategori={wine.wff_kategori}
                 />
-              </div>
+              </motion.div>
             ))}
-          </div>
+          </motion.div>
         ))}
       </section>
     </div>

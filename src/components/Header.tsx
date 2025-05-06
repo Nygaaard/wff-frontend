@@ -20,7 +20,6 @@ const Header = () => {
           <h1 className="site-title">WINE FOR FRIENDS</h1>
         </NavLink>
 
-        {/* Hamburgarikonen ingår nu i headern */}
         <div className="menu-icon" onClick={toggleMenu}>
           {isMenuOpen ? <FaTimes size={30} /> : <FaBars size={30} />}
         </div>

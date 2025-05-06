@@ -19,6 +19,19 @@ const fadeVariant = {
   visible: { opacity: 1, y: 0 },
 };
 
+const containerVariant = {
+  visible: {
+    transition: {
+      staggerChildren: 0.2,
+    },
+  },
+};
+
+const childVariant = {
+  hidden: { opacity: 0, y: 30 },
+  visible: { opacity: 1, y: 0 },
+};
+
 const HomePage = () => {
   const [wines, setWines] = useState<WineProps[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
@@ -104,9 +117,8 @@ const HomePage = () => {
           className="frontpage-upper-slice"
           variants={fadeVariant}
           initial="hidden"
-          whileInView="visible"
+          animate="visible"
           transition={{ duration: 0.8 }}
-          viewport={{ once: true }}
         >
           <img
             src={heroSection.image.url}
@@ -125,7 +137,7 @@ const HomePage = () => {
         initial="hidden"
         whileInView="visible"
         transition={{ duration: 0.8 }}
-        viewport={{ once: true }}
+        viewport={{ once: false, amount: 0.2 }}
       >
         <div className="wineHeader">
           <h2 className="frontpage-winesList">Våra viner</h2>
@@ -140,16 +152,16 @@ const HomePage = () => {
 
       <motion.section
         className="winesList"
-        variants={fadeVariant}
+        variants={containerVariant}
         initial="hidden"
         whileInView="visible"
-        transition={{ duration: 0.8 }}
-        viewport={{ once: true }}
+        viewport={{ once: false, amount: 0.2 }}
       >
-        <div className="wineRow">
+        <motion.div className="wineRow" variants={containerVariant}>
           {wines.slice(0, 4).map((wine, i) => (
-            <div
+            <motion.div
               key={wine.id}
+              variants={childVariant}
               className={`wineCardWrapper ${i !== 3 ? "withBorderRight" : ""}`}
             >
               <WineCard
@@ -161,9 +173,9 @@ const HomePage = () => {
                 wff_pris={wine.wff_pris}
                 wff_kategori={wine.wff_kategori}
               />
-            </div>
+            </motion.div>
           ))}
-        </div>
+        </motion.div>
       </motion.section>
 
       {aboutSection && (
@@ -173,7 +185,7 @@ const HomePage = () => {
           initial="hidden"
           whileInView="visible"
           transition={{ duration: 0.8 }}
-          viewport={{ once: true }}
+          viewport={{ once: false, amount: 0.2 }}
         >
           <h3>
             {aboutSection.title}
@@ -202,7 +214,7 @@ const HomePage = () => {
         initial="hidden"
         whileInView="visible"
         transition={{ duration: 0.8 }}
-        viewport={{ once: true }}
+        viewport={{ once: false, amount: 0.2 }}
       >
         <hr className="horizontal-line" />
         <div className="instagram-text-container">
