@@ -4,13 +4,8 @@ import logo from "../assets/images/logo.png";
 import { FaBars, FaTimes } from "react-icons/fa";
 
 const Header = () => {
-  // State för att hantera om menyn är öppen eller stängd
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-
-  // Funktion för att stänga menyn
   const closeMenu = () => setIsMenuOpen(false);
-
-  // Funktion för att öppna menyn
   const toggleMenu = () => setIsMenuOpen(!isMenuOpen);
 
   return (

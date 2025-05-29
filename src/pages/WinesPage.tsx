@@ -27,7 +27,7 @@ const WinesPage = () => {
         );
         if (!response.ok) throw new Error();
         const data: WineProps[] = await response.json();
-        console.log(data);
+
         setWines(data);
         setFilteredWines(data);
         extractFilterOptions(data);
@@ -154,15 +154,7 @@ const WinesPage = () => {
                 whileHover={{ scale: 1.02 }}
                 transition={{ type: "spring", stiffness: 200 }}
               >
-                <WineCard
-                  id={wine.id}
-                  slug={wine.slug}
-                  featured_image_url={wine.featured_image_url}
-                  title={wine.title}
-                  wff_producent={wine.wff_producent}
-                  wff_pris={wine.wff_pris}
-                  wff_kategori={wine.wff_kategori}
-                />
+                <WineCard {...wine} />
               </motion.div>
             ))}
           </motion.div>

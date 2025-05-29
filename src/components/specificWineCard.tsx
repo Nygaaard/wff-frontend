@@ -1,5 +1,12 @@
 import { WineI } from "../types/Wines/WineInterface";
 
+// Funktion för att avkoda HTML-entiteter
+const decodeHtml = (html: string): string => {
+  const txt = document.createElement("textarea");
+  txt.innerHTML = html;
+  return txt.value;
+};
+
 const SpecificWineCard: React.FC<WineI> = ({
   title,
   wff_pris,
@@ -26,7 +33,7 @@ const SpecificWineCard: React.FC<WineI> = ({
     <div className="specificWineContainer">
       <section className="leftSection">
         <div className="upper">
-          <h2>{title.rendered}</h2>
+          <h2>{decodeHtml(title.rendered)}</h2>
           <p className="producer">
             {wff_producent?.title || "Ingen producent"}
           </p>
@@ -143,7 +150,7 @@ const SpecificWineCard: React.FC<WineI> = ({
 
       {featured_image_url && (
         <section className="rightSection">
-          <img src={featured_image_url} alt={title.rendered} />
+          <img src={featured_image_url} alt={decodeHtml(title.rendered)} />
         </section>
       )}
     </div>
