@@ -1,40 +1,54 @@
+import React from "react";
+import { Link } from "react-router-dom";
 import { WineProps } from "../types/Wines/WineProps";
-import { motion } from "framer-motion";
 
-// Funktion för att avkoda HTML-entiteter
-const decodeHtml = (html: string): string => {
-  const txt = document.createElement("textarea");
-  txt.innerHTML = html;
-  return txt.value;
-};
-
-const WineCard: React.FC<WineProps> = ({
+const WineCard: React.FC<WineProps & { eager?: boolean }> = ({
+  slug,
   featured_image_url,
   title,
-  wff_producent,
   wff_pris,
-  wff_kategori,
+  eager = false,
 }) => {
+  const imageUrl =
+    typeof featured_image_url === "string"
+      ? featured_image_url
+      : featured_image_url.sizes?.medium || featured_image_url.url;
+
+  const srcSet =
+    typeof featured_image_url === "object" && featured_image_url.sizes
+      ? `
+        ${featured_image_url.sizes.thumbnail ?? ""} 150w,
+        ${featured_image_url.sizes.medium ?? ""} 300w,
+        ${featured_image_url.sizes.large ?? ""} 1024w,
+        ${featured_image_url.url} 2048w
+      `
+      : undefined;
+
+  const altText =
+    typeof featured_image_url === "object"
+      ? featured_image_url.alt || title.rendered
+      : title.rendered;
+
   return (
-    <motion.article
-      className="card"
-      whileHover={{ scale: 1.02 }}
-      transition={{ type: "spring", stiffness: 200 }}
-    >
-      <img
-        className="image"
-        src={featured_image_url}
-        alt={decodeHtml(title?.rendered || "")}
-      />
-      <h3 className="title">{decodeHtml(title?.rendered || "Titel saknas")}</h3>
-      <p className="text">{wff_producent?.title || "Ingen producent"}</p>
-      <div className="priceCategory">
-        <span>{wff_pris}</span>
-        <span>
-          {wff_kategori === "Beställningssortiment" ? "BS" : "Privatimport"}
-        </span>
+    <Link to={`/wine/${slug}`} className="wine-card-link">
+      <div className="card">
+        <img
+          src={imageUrl}
+          srcSet={srcSet}
+          sizes="(max-width: 640px) 150px, (max-width: 1024px) 300px, 400px"
+          alt={altText}
+          loading={eager ? "eager" : "lazy"}
+          fetchPriority={eager ? "high" : "auto"}
+          width={300}
+          height={400}
+          className="image"
+        />
+        <div className="card-info">
+          <h4 className="title">{title.rendered}</h4>
+          <p className="price">{wff_pris}</p>
+        </div>
       </div>
-    </motion.article>
+    </Link>
   );
 };
 

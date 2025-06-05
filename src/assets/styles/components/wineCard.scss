@@ -1,31 +1,44 @@
 .card {
     background-color: #fff;
     padding: 0;
-    width: 100%;
+    width: 300px;
+    /* matchar bildbredd */
+    box-sizing: border-box;
 }
 
 .card:hover {
     cursor: pointer;
 }
 
-.card .image {
+.wine-card-link {
+    color: inherit;
+    text-decoration: none;
+    display: inline-block;
+}
+
+.wine-card-link:hover {
+    text-decoration: none;
+}
+
+.image {
     width: 100%;
-    height: auto;
+    height: 400px;
+    /* fast höjd */
     object-fit: cover;
     border-radius: 4px;
 }
-
-.card .title {
-    margin: 0.5rem 0 0.25rem;
-    font-size: 1.1rem;
+.title {
+    color: #000;
+        margin: 8px 0 0 0;
+        font-weight: normal;
+        text-decoration: none;
+        font-weight: bold;
 }
 
-.card .text {
-    margin: 0.25rem 0;
-}
-
-.card .priceCategory {
-    display: flex;
-    justify-content: space-between;
-    font-weight: bold;
+.price 
+{
+    color: #000;
+    margin: 8px 0 0 0;
+    font-weight: normal;
+    text-decoration: none;
 }

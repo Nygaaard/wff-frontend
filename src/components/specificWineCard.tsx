@@ -55,7 +55,7 @@ const SpecificWineCard: React.FC<WineI> = ({
           </div>
 
           <div className="bottomRow">
-            {wff_pris && <span className="price">{wff_pris} kr</span>}
+            {wff_pris && <span className="price">{wff_pris}</span>}
             {wff_systembolaget_url && (
               <a
                 className="link buy"

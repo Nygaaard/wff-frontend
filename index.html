@@ -1,14 +1,45 @@
 <!doctype html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Vite + React + TS</title>
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
-  </head>
-  <body>
-    <div id="root"></div>
-    <script type="module" src="/src/main.tsx"></script>
-  </body>
+<html lang="sv">
+
+<head>
+  <meta charset="UTF-8" />
+  <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>Wine for Friends – Naturliga Viner</title>
+  <meta name="description"
+    content="Upptäck naturliga viner från småskaliga producenter. Wine for Friends – din vän inom vin!" />
+  <meta name="keywords" content="vin, naturliga viner, ekologiskt vin, vinbutik, wine for friends" />
+  <meta name="author" content="Wine for Friends" />
+
+  <!-- Preload Hero-image (för bättre FCP) -->
+  <link rel="preload" as="image" href="/src/assets/images/Frontpage.jpg" fetchpriority="high" />
+
+  <!-- Preconnect för Google Fonts (snabbar upp anslutning) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+
+  <!-- Roboto Font, laddas asynkront för att minska render-block -->
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet"
+    media="print" onload="this.media='all'" />
+
+  <!-- Open Graph (för delning) -->
+  <meta property="og:title" content="Wine for Friends – Naturliga Viner" />
+  <meta property="og:description" content="Upptäck naturliga viner från småskaliga producenter." />
+  <meta property="og:image" content="/src/assets/images/Frontpage.jpg" />
+  <meta property="og:type" content="website" />
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Wine for Friends – Naturliga Viner" />
+  <meta name="twitter:description" content="Upptäck naturliga viner från småskaliga producenter." />
+  <meta name="twitter:image" content="/src/assets/images/Frontpage.jpg" />
+</head>
+
+
+<body>
+  <div id="root"></div>
+  <script type="module" src="/src/main.tsx"></script>
+</body>
+
 </html>

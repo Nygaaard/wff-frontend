@@ -1,18 +1,21 @@
-import image from "../assets/images/Frontpage.jpg";
-import frontpageAboutImage from "../assets/images/Frontpage-about.png";
-import WineCard from "../components/WineCard";
-import { WineProps } from "../types/Wines/WineProps";
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
+import { motion } from "framer-motion";
+import WineCard from "../components/WineCard";
+import AgeController from "../components/AgeController";
+
+import { WineProps } from "../types/Wines/WineProps";
+import { HomePageAboutSection } from "../types/Interfaces-wp/HomePage-about";
+import { HeroSection } from "../types/Interfaces-wp/HomePage-hero";
+
+import image from "../assets/images/Frontpage.jpg";
+import frontpageAboutImage from "../assets/images/Frontpage-about.png";
 import insta1 from "../assets/images/insta1.png";
 import insta2 from "../assets/images/insta2.png";
 import insta3 from "../assets/images/insta3.png";
 import insta4 from "../assets/images/insta4.png";
 import insta5 from "../assets/images/insta5.png";
 import insta6 from "../assets/images/insta6.png";
-import { HomePageAboutSection } from "../types/Interfaces-wp/HomePage-about";
-import { HeroSection } from "../types/Interfaces-wp/HomePage-hero";
-import { motion } from "framer-motion";
 
 const fadeVariant = {
   hidden: { opacity: 0, y: 30 },
@@ -33,82 +36,97 @@ const childVariant = {
 };
 
 const HomePage = () => {
-  const [wines, setWines] = useState<WineProps[]>([]);
-  const [loading, setLoading] = useState<boolean>(true);
-  const [error, setError] = useState<string | null>(null);
+  const [heroSection, setHeroSection] = useState<HeroSection | null>(null);
   const [aboutSection, setAboutSection] = useState<HomePageAboutSection | null>(
     null
   );
-  const [heroSection, setHeroSection] = useState<HeroSection | null>(null);
+  const [wines, setWines] = useState<WineProps[]>([]);
+  const [loadingAbout, setLoadingAbout] = useState(true);
+  const [loadingWines, setLoadingWines] = useState(true);
+  const [error, setError] = useState<string | null>(null);
+  const [showAgeGate, setShowAgeGate] = useState(false);
 
+  // Hantera åldersverifiering
   useEffect(() => {
-    const fetchWines = async () => {
-      try {
-        const response = await fetch(
-          "http://localhost/wine_for_friends/wp-json/wp/v2/wine"
-        );
-        if (!response.ok) throw new Error();
-        const data = await response.json();
-        setWines(data);
-      } catch {
-        setError("Något gick fel vid hämtning av viner...");
-      } finally {
-        setLoading(false);
-      }
-    };
-    fetchWines();
-    window.scrollTo(0, 0);
+    const confirmed = localStorage.getItem("ageConfirmed");
+    if (!confirmed) {
+      setShowAgeGate(true);
+    }
   }, []);
 
+  const handleConfirm = () => {
+    localStorage.setItem("ageConfirmed", "true");
+    setShowAgeGate(false);
+  };
+
+  // Hämta hero-sektionen först
   useEffect(() => {
-    const fetchHeroSection = async () => {
+    const fetchHero = async () => {
       try {
         const res = await fetch(
           "http://localhost/wine_for_friends/wp-json/wp/v2/pages?slug=startsida-hero"
         );
         const data = await res.json();
-        if (data.length > 0) {
-          const acf = data[0]?.acf;
-          setHeroSection({
-            text: acf?.hero_text || "Default hero text",
-            image: {
-              url: acf?.hero_image?.url || image,
-              alt: acf?.hero_image?.alt || "Hero image",
-            },
-          });
-        }
-      } catch (error) {
-        console.error("Kunde inte hämta hero-sektionen", error);
+        const acf = data[0]?.acf;
+
+        setHeroSection({
+          text: acf?.hero_text || "Default hero text",
+          image: {
+            url: acf?.hero_image?.url || image,
+            alt: acf?.hero_image?.alt || "Hero image",
+          },
+        });
+      } catch {
+        setError("Kunde inte ladda hero-sektionen.");
       }
     };
-    fetchHeroSection();
+    fetchHero();
+    window.scrollTo(0, 0);
   }, []);
 
+  // Hämta övrigt innehåll när hero är laddad
   useEffect(() => {
-    const fetchAboutSection = async () => {
+    if (!heroSection) return;
+
+    const fetchOtherData = async () => {
       try {
-        const res = await fetch(
-          "http://localhost/wine_for_friends/wp-json/wp/v2/pages?slug=startsida"
-        );
-        const data = await res.json();
-        if (data.length > 0) {
-          const acf = data[0]?.acf;
-          setAboutSection({
-            title: acf?.about_heading || "Default Title",
-            subtitle: acf?.about_subheading || "Default Subtitle",
-            content: acf?.about_text || "Default content text",
-            image: {
-              url: acf?.about_image?.url || frontpageAboutImage,
-              alt: acf?.about_image?.alt || "Default image",
-            },
-          });
-        }
-      } catch (error) {
-        console.error("Kunde inte hämta about-sektionen", error);
+        const [winesRes, aboutRes] = await Promise.all([
+          fetch("http://localhost/wine_for_friends/wp-json/wp/v2/wine"),
+          fetch(
+            "http://localhost/wine_for_friends/wp-json/wp/v2/pages?slug=startsida"
+          ),
+        ]);
+
+        if (!winesRes.ok || !aboutRes.ok) throw new Error();
+
+        const winesData = await winesRes.json();
+        const aboutData = await aboutRes.json();
+        const aboutAcf = aboutData[0]?.acf;
+
+        setWines(winesData);
+        setAboutSection({
+          title: aboutAcf?.about_heading || "Default Title",
+          subtitle: aboutAcf?.about_subheading || "Default Subtitle",
+          content: aboutAcf?.about_text || "Default content",
+          image: {
+            url: aboutAcf?.about_image?.url || frontpageAboutImage,
+            alt: aboutAcf?.about_image?.alt || "Default image",
+          },
+        });
+      } catch {
+        setError("Kunde inte ladda viner eller about-sektionen.");
+      } finally {
+        setLoadingWines(false);
+        setLoadingAbout(false);
       }
     };
-    fetchAboutSection();
-  }, []);
+
+    fetchOtherData();
+  }, [heroSection]);
+
+  if (showAgeGate) {
+    return <AgeController onConfirm={handleConfirm} />;
+  }
 
   return (
     <div>
@@ -124,6 +142,10 @@ const HomePage = () => {
             src={heroSection.image.url}
             alt={heroSection.image.alt}
             className="frontpage-image"
+            width="1512"
+            height="667"
+            loading="eager"
+            fetchPriority="high"
           />
           <div className="frontpage-info">
             <p>{heroSection.text}</p>
@@ -147,38 +169,35 @@ const HomePage = () => {
         </div>
       </motion.section>
 
-      {loading && <p>Laddar...</p>}
+      {loadingWines && <p>Laddar viner...</p>}
       {error && <p className="error">{error}</p>}
 
-      <motion.section
-        className="winesList"
-        variants={containerVariant}
-        initial="hidden"
-        whileInView="visible"
-        viewport={{ once: false, amount: 0.2 }}
-      >
-        <motion.div className="wineRow" variants={containerVariant}>
-          {wines.slice(0, 4).map((wine, i) => (
-            <motion.div
-              key={wine.id}
-              variants={childVariant}
-              className={`wineCardWrapper ${i !== 3 ? "withBorderRight" : ""}`}
-            >
-              <WineCard
-                id={wine.id}
-                slug={wine.slug}
-                featured_image_url={wine.featured_image_url}
-                title={wine.title}
-                wff_producent={wine.wff_producent}
-                wff_pris={wine.wff_pris}
-                wff_kategori={wine.wff_kategori}
-              />
-            </motion.div>
-          ))}
-        </motion.div>
-      </motion.section>
+      {!loadingWines && wines.length > 0 && (
+        <motion.section
+          className="winesList"
+          variants={containerVariant}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: false, amount: 0.2 }}
+        >
+          <motion.div className="wineRow" variants={containerVariant}>
+            {wines.slice(0, 4).map((wine, i) => (
+              <motion.div
+                key={wine.id}
+                variants={childVariant}
+                className={`wineCardWrapper ${
+                  i !== 3 ? "withBorderRight" : ""
+                }`}
+              >
+                {/* Första vinet laddas med eager */}
+                <WineCard {...wine} eager={i === 0} />
+              </motion.div>
+            ))}
+          </motion.div>
+        </motion.section>
+      )}
 
-      {aboutSection && (
+      {!loadingAbout && aboutSection && (
         <motion.section
           className="frontpage-about-slice"
           variants={fadeVariant}
@@ -197,6 +216,7 @@ const HomePage = () => {
               src={aboutSection.image.url}
               alt={aboutSection.image.alt}
               className="frontpage-about-image"
+              loading="lazy"
             />
             <div className="frontpage-about-div">
               <p>{aboutSection.content}</p>
@@ -224,7 +244,7 @@ const HomePage = () => {
         <div className="instagram-carousel">
           {[insta1, insta2, insta3, insta4, insta5, insta6].map((src, i) => (
             <div className="carousel-image" key={i}>
-              <img src={src} alt={`Instagram ${i + 1}`} />
+              <img src={src} alt={`Instagram ${i + 1}`} loading="lazy" />
             </div>
           ))}
         </div>
