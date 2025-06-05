@@ -1,6 +1,6 @@
 import { useState } from "react";
-import { ToastContainer, toast } from "react-toastify"; // Importera toastify
-import "react-toastify/dist/ReactToastify.css"; // Importera CSS för toastify
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import footerImageOne from "../assets/images/footer-image1.png";
 import footerImageTwo from "../assets/images/footer-image2.png";
 import footerImageThree from "../assets/images/footer-image3.png";
@@ -41,9 +41,26 @@ const Footer = () => {
       const result = await response.json();
 
       if (response.ok) {
-        toast.success("Tack för att du registrerat dig!"); // Visa toast vid lyckad registrering
+        toast.success("Du är nu registrerad i vinklubben. Välkommen!");
+      } else if (
+        result.message &&
+        (result.message.toLowerCase().includes("already a list member") ||
+          result.message.toLowerCase().includes("redan registrerad"))
+      ) {
+        toast.info("Denna e-postadress är redan med i vinklubben.");
+      } else if (
+        result.message &&
+        result.message
+          .toLowerCase()
+          .includes("resource submitted could not be validated")
+      ) {
+        toast.error(
+          "E-postadressen verkar inte vara giltig. Vänligen kontrollera och försök igen."
+        );
       } else {
-        toast.error(result.message || "Något gick fel, försök igen.");
+        toast.error(
+          result.message || "Det blev något fel. Försök igen senare."
+        );
       }
     } catch {
       toast.error("Fel vid anslutning till servern. Försök igen.");
@@ -105,10 +122,9 @@ const Footer = () => {
         </div>
       </section>
 
-      {/* Lägg till ToastContainer här */}
       <ToastContainer
         position="top-right"
-        autoClose={5000} // Visa toast i 5 sekunder
+        autoClose={5000}
         hideProgressBar={false}
         newestOnTop
         closeButton={false}
