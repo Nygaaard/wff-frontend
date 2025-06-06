@@ -10,12 +10,6 @@ import { HeroSection } from "../types/Interfaces-wp/HomePage-hero";
 
 import image from "../assets/images/Frontpage.jpg";
 import frontpageAboutImage from "../assets/images/Frontpage-about.png";
-import insta1 from "../assets/images/insta1.png";
-import insta2 from "../assets/images/insta2.png";
-import insta3 from "../assets/images/insta3.png";
-import insta4 from "../assets/images/insta4.png";
-import insta5 from "../assets/images/insta5.png";
-import insta6 from "../assets/images/insta6.png";
 
 const fadeVariant = {
   hidden: { opacity: 0, y: 30 },
@@ -40,13 +34,15 @@ const HomePage = () => {
   const [aboutSection, setAboutSection] = useState<HomePageAboutSection | null>(
     null
   );
+  const [instagramImages, setInstagramImages] = useState<
+    { url: string; alt: string }[]
+  >([]);
   const [wines, setWines] = useState<WineProps[]>([]);
   const [loadingAbout, setLoadingAbout] = useState(true);
   const [loadingWines, setLoadingWines] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [showAgeGate, setShowAgeGate] = useState(false);
 
-  // Hantera åldersverifiering
   useEffect(() => {
     const confirmed = localStorage.getItem("ageConfirmed");
     if (!confirmed) {
@@ -59,7 +55,6 @@ const HomePage = () => {
     setShowAgeGate(false);
   };
 
-  // Hämta hero-sektionen först
   useEffect(() => {
     const fetchHero = async () => {
       try {
@@ -84,7 +79,6 @@ const HomePage = () => {
     window.scrollTo(0, 0);
   }, []);
 
-  // Hämta övrigt innehåll när hero är laddad
   useEffect(() => {
     if (!heroSection) return;
 
@@ -104,6 +98,7 @@ const HomePage = () => {
         const aboutAcf = aboutData[0]?.acf;
 
         setWines(winesData);
+
         setAboutSection({
           title: aboutAcf?.about_heading || "Default Title",
           subtitle: aboutAcf?.about_subheading || "Default Subtitle",
@@ -123,6 +118,45 @@ const HomePage = () => {
 
     fetchOtherData();
   }, [heroSection]);
+
+  useEffect(() => {
+    const fetchInstagramImages = async () => {
+      try {
+        const res = await fetch(
+          "http://localhost/wine_for_friends/wp-json/wp/v2/pages?slug=startsida-instagram"
+        );
+        const data = await res.json();
+        const acf = data[0]?.acf;
+
+        // Explicit typ för arrayen för att undvika implicit any
+        const imagesArray: { url: string; alt: string }[] = [];
+
+        if (acf) {
+          [
+            "image_one",
+            "image_two",
+            "image_three",
+            "image_four",
+            "image_five",
+            "image_six",
+          ].forEach((key) => {
+            if (acf[key]?.url) {
+              imagesArray.push({
+                url: acf[key].url,
+                alt: acf[key].alt || "Instagram image",
+              });
+            }
+          });
+        }
+
+        setInstagramImages(imagesArray);
+      } catch (error) {
+        console.error("Kunde inte hämta Instagram-bilder:", error);
+      }
+    };
+
+    fetchInstagramImages();
+  }, []);
 
   if (showAgeGate) {
     return <AgeController onConfirm={handleConfirm} />;
@@ -189,7 +223,6 @@ const HomePage = () => {
                   i !== 3 ? "withBorderRight" : ""
                 }`}
               >
-                {/* Första vinet laddas med eager */}
                 <WineCard {...wine} eager={i === 0} />
               </motion.div>
             ))}
@@ -242,11 +275,19 @@ const HomePage = () => {
           <p className="instagram-handle">@wineforfriends.se</p>
         </div>
         <div className="instagram-carousel">
-          {[insta1, insta2, insta3, insta4, insta5, insta6].map((src, i) => (
-            <div className="carousel-image" key={i}>
-              <img src={src} alt={`Instagram ${i + 1}`} loading="lazy" />
-            </div>
-          ))}
+          {instagramImages.length > 0 ? (
+            instagramImages.map((img, i) => (
+              <div className="carousel-image" key={i}>
+                <img
+                  src={img.url}
+                  alt={img.alt || `Instagram ${i + 1}`}
+                  loading="lazy"
+                />
+              </div>
+            ))
+          ) : (
+            <p>Inga Instagram-bilder tillgängliga just nu.</p>
+          )}
         </div>
       </motion.section>
     </div>

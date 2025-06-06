@@ -2,6 +2,13 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { WineProps } from "../types/Wines/WineProps";
 
+// Funktion för att avkoda HTML-entiteter
+const decodeHtml = (html: string): string => {
+  const txt = document.createElement("textarea");
+  txt.innerHTML = html;
+  return txt.value;
+};
+
 const WineCard: React.FC<WineProps & { eager?: boolean }> = ({
   slug,
   featured_image_url,
@@ -26,8 +33,8 @@ const WineCard: React.FC<WineProps & { eager?: boolean }> = ({
 
   const altText =
     typeof featured_image_url === "object"
-      ? featured_image_url.alt || title.rendered
-      : title.rendered;
+      ? featured_image_url.alt || decodeHtml(title.rendered)
+      : decodeHtml(title.rendered);
 
   return (
     <Link to={`/wine/${slug}`} className="wine-card-link">
@@ -44,7 +51,7 @@ const WineCard: React.FC<WineProps & { eager?: boolean }> = ({
           className="image"
         />
         <div className="card-info">
-          <h4 className="title">{title.rendered}</h4>
+          <h4 className="title">{decodeHtml(title.rendered)}</h4>
           <p className="price">{wff_pris}</p>
         </div>
       </div>
