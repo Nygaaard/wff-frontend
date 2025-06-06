@@ -1,44 +1,67 @@
 .card {
     background-color: #fff;
-    padding: 0;
-    width: 300px;
-    /* matchar bildbredd */
+    width: 100%;
+    max-width: 320px;
     box-sizing: border-box;
-}
-
-.card:hover {
-    cursor: pointer;
+    border-radius: 8px;
+    overflow: hidden;
 }
 
 .wine-card-link {
+    text-decoration: none;
     color: inherit;
-    text-decoration: none;
-    display: inline-block;
-}
-
-.wine-card-link:hover {
-    text-decoration: none;
+    display: block;
 }
 
 .image {
     width: 100%;
     height: 400px;
-    /* fast höjd */
     object-fit: cover;
-    border-radius: 4px;
-}
-.title {
-    color: #000;
-        margin: 8px 0 0 0;
-        font-weight: normal;
-        text-decoration: none;
-        font-weight: bold;
 }
 
-.price 
-{
+.wine-card-content {
+    padding: 12px;
+}
+
+.title {
+    font-size: 1.1rem;
+    font-weight: bold;
+    margin: 0;
+}
+
+.text {
+    color: #333;
+    margin: 4px 0 8px;
+}
+
+.priceCategory {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.price {
+    font-weight: bold;
+    font-size: 1rem;
     color: #000;
-    margin: 8px 0 0 0;
-    font-weight: normal;
-    text-decoration: none;
+}
+
+.kategori-tag {
+    padding: 2px 6px;
+    border-radius: 4px;
+    font-size: 0.75rem;
+    font-weight: bold;
+    display: inline-block;
+    white-space: nowrap;
+}
+
+.kategori-tag.bs {
+    background-color: #000;
+    color: #fff;
+}
+
+.kategori-tag.privatimport {
+    background-color: #fff;
+    color: #000;
+    border: 1px solid #000;
 }

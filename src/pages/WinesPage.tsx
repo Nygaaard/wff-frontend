@@ -1,7 +1,6 @@
 import WineCard from "../components/WineCard";
 import { useState, useEffect } from "react";
 import { WineProps } from "../types/Wines/WineProps";
-import { useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
 
 const WinesPage = () => {
@@ -16,8 +15,6 @@ const WinesPage = () => {
   const [selectedCategory, setSelectedCategory] = useState("");
   const [selectedCountry, setSelectedCountry] = useState("");
   const [selectedProducer, setSelectedProducer] = useState("");
-
-  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchWines = async () => {
@@ -49,10 +46,6 @@ const WinesPage = () => {
     setCategories(unique(data.map((w) => w.wff_varugrupp)));
     setCountries(unique(data.map((w) => w.wff_land)));
     setProducers(unique(data.map((w) => w.wff_producent?.title)));
-  };
-
-  const handleCardClick = (slug: string) => {
-    navigate(`/wine/${slug}`);
   };
 
   useEffect(() => {
@@ -150,7 +143,8 @@ const WinesPage = () => {
                 className={`wineCardWrapper ${
                   i !== row.length - 1 ? "withBorderRight" : ""
                 }`}
-                onClick={() => handleCardClick(wine.slug)}
+                // Här tas onClick bort:
+                // onClick={() => handleCardClick(wine.slug)}
                 whileHover={{ scale: 1.02 }}
                 transition={{ type: "spring", stiffness: 200 }}
               >

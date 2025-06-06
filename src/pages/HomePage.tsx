@@ -176,8 +176,6 @@ const HomePage = () => {
             src={heroSection.image.url}
             alt={heroSection.image.alt}
             className="frontpage-image"
-            width="1512"
-            height="667"
             loading="eager"
             fetchPriority="high"
           />

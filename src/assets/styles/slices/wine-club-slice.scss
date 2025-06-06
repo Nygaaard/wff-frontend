@@ -8,6 +8,7 @@
     border-radius: 10px;
     min-height: 400px;
     overflow: visible;
+    gap: 2rem;
 
     .left {
         flex: 1;
@@ -26,6 +27,7 @@
             font-size: 1.2rem;
             line-height: 1.6;
             margin-bottom: 30px;
+            max-width: 600px;
         }
 
         .email-input-wrapper {
@@ -34,6 +36,7 @@
             border: 1px solid #ccc;
             border-radius: 5px;
             overflow: hidden;
+            max-width: 600px;
 
             input[type="email"] {
                 flex: 1;
@@ -97,20 +100,43 @@
         .left {
             padding-right: 0;
             margin-bottom: 30px;
+
             p {
-                width: 60%;
+                width: 80%;
+                margin: 0 auto 30px auto;
+                text-align: center;
+            }
+
+            .email-input-wrapper {
+                flex-direction: column;
+
+                input[type="email"],
+                button {
+                    width: 100%;
+                    border-radius: 0;
+                }
+
+                button {
+                    border-top: 1px solid #ccc;
+                }
             }
         }
     }
 }
 
-@media (max-width: 768px) {
-    .wineclub-section{
+@media (max-width: 600px) {
+    .wineclub-section {
+        padding: 30px 20px;
+
         .left {
             p {
-                width: 90%;
+                width: 100%;
+                font-size: 1rem;
+            }
+
+            h4 {
+                font-size: 1.5rem;
             }
         }
     }
-    
 }

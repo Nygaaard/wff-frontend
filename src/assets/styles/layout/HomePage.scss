@@ -1,12 +1,27 @@
 .frontpage-upper-slice {
     display: flex;
     flex-direction: column;
+    align-items: center;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 1rem;
+    max-width: 100vw;
+    overflow-x: hidden;
 }
 
 .frontpage-image {
-    // width: 1512px;
-    // height: 667px;
+    width: 100%;
+    height: auto;
     margin-top: 80px;
+    max-height: 400px;
+    object-fit: cover;
+}
+
+@media (min-width: 800px) {
+    .frontpage-image {
+        max-height: none;
+        width: 100%;
+    }
 }
 
 .frontpage-info {
@@ -14,12 +29,15 @@
     margin-left: auto;
     margin-top: 1rem;
     padding: 1rem;
-    @media (max-width: 800px) {
-        width: 80%;
-        margin: 0 auto;
-    }
 }
 
+@media (max-width: 800px) {
+    .frontpage-info {
+        width: 90%;
+        margin: 1rem auto 2rem auto;
+        text-align: center;
+    }
+}
 
 .wineHeader {
     display: flex;
@@ -35,5 +53,4 @@
 }
 
 .allWinesLink:hover {
-    text-decoration: underline;
-}
+    text-decoration: underline; }
